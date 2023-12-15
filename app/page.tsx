@@ -1,13 +1,11 @@
-import ThemeButton from '@/components/UI/ThemeButton'
+import NavigationSidebar from '@/components/UI/NavigationSidebar'
 import { setupProfile } from '@/lib/setupProfile'
-import { UserButton } from '@clerk/nextjs'
 
 const Home = async () => {
   const profile = await setupProfile()
   return (
-    <div>
-      <UserButton />
-      <ThemeButton />
+    <div className='h-full'>
+      <NavigationSidebar />
     </div>
   )
 }

@@ -62,6 +62,10 @@ body,
   @apply transition-all duration-200 hover:brightness-90 dark:hover:brightness-150;
 }
 
+.tooltip {
+  @apply after:bg-background after:text-primary before:bg-background before:text-primary;
+}
+
 .tooltip-position:after,
 .tooltip-position:before {
   top: var(--top);

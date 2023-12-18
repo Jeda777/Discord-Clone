@@ -63,7 +63,7 @@ body,
 }
 
 .tooltip {
-  @apply after:bg-background after:text-primary before:bg-background before:text-primary;
+  @apply after:border-r-secondary before:bg-secondary before:text-primary;
 }
 
 .tooltip-position:after,

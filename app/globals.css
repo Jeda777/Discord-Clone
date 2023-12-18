@@ -57,3 +57,13 @@ body,
     --ring: rgb(214, 211, 209);
   }
 }
+
+.btn {
+  @apply transition-all duration-200 hover:brightness-90 dark:hover:brightness-150;
+}
+
+.tooltip-position:after,
+.tooltip-position:before {
+  top: var(--top);
+  left: var(--left);
+}

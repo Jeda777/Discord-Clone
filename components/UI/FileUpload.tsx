@@ -10,22 +10,25 @@ const FileUpload = ({
   endpoint,
   onChange,
   value,
+  isLoading,
 }: {
   endpoint: 'messageFile' | 'serverImage'
   onChange: UseFormSetValue<{ name: string; imageUrl: string }>
-  value: { name: string; imageUrl: string }
+  value: string
+  isLoading: boolean
 }) => {
-  if (value.imageUrl) {
+  if (value) {
     return (
       <div className='relative w-32 h-32'>
         <button
           className='absolute top-0 right-0 z-10 btn btn-rounded btn-xs bg-primary-foreground h-8 w-8 p-0 hover:scale-125'
           onClick={() => onChange('imageUrl', '')}
+          disabled={isLoading}
         >
           <IoClose className='text-2xl md:text-3xl text-primary ' />
         </button>
 
-        <Image className='w-full h-auto rounded-full' fill alt='Upload' src={value.imageUrl} />
+        <Image className='w-full h-auto rounded-full' fill alt='Upload' src={value} />
       </div>
     )
   } else {

@@ -21,7 +21,7 @@ const NavigationButton = ({ imageSrc, name, id }: { imageSrc: string; name: stri
         className='btn btn-circle bg-primary-foreground border-border border-2 w-8 h-8 md:w-10 md:h-10'
         onClick={() => router.push(`server/${id}`)}
       >
-        <Image className='rounded-full' alt='Server icon' src={imageSrc} />
+        <Image className='rounded-full' alt='Server icon' fill src={imageSrc} />
       </button>
     </span>
   )

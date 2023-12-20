@@ -1,15 +1,14 @@
 import CreateServerModal from '@/components/UI/Modals/CreateServerModal'
 import NavigationSidebar from '@/components/UI/NavigationSidebar'
-import { setupProfile } from '@/lib/setupProfile'
 
-const Home = async () => {
-  const profile = await setupProfile()
+const MainLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className='h-full'>
+    <div className='h-full flex'>
       <CreateServerModal />
       <NavigationSidebar />
+      {children}
     </div>
   )
 }
 
-export default Home
+export default MainLayout

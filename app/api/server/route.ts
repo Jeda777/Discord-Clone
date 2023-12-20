@@ -7,7 +7,6 @@ import { v4 as uuid } from 'uuid'
 export const POST = async (req: Request) => {
   try {
     const profile = await currentProfile()
-    if (!profile) return new NextResponse('Unauthorized', { status: 401 })
     const { name, imageUrl } = await req.json()
 
     const server = await db.server.create({

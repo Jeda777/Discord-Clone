@@ -17,11 +17,8 @@ const CreateServerButton = () => {
         e.currentTarget.style.setProperty('--left', `${leftPosition}px`)
       }}
     >
-      <button
-        className='btn btn-circle bg-primary-foreground border-border border-2 w-8 h-8 md:w-10 md:h-10'
-        onClick={() => open('createServer')}
-      >
-        <IoAdd className='text-xl md:text-2xl text-primary' />
+      <button className='btn btn-circle bg-secondary w-8 h-8 md:w-10 md:h-10' onClick={() => open('createServer')}>
+        <IoAdd className='text-2xl md:text-4xl text-primary' />
       </button>
     </span>
   )

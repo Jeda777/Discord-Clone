@@ -8,7 +8,7 @@ const ThemeButton = () => {
   const { theme, setTheme } = useTheme()
   return (
     <button
-      className='btn btn-circle bg-primary-foreground border-border border-2 w-8 h-8 md:w-10 md:h-10'
+      className='btn btn-circle bg-secondary w-8 h-8 md:w-10 md:h-10'
       onClick={() => {
         theme == 'light' ? setTheme('dark') : theme == 'dark' ? setTheme('light') : console.error('Theme not recognized')
       }}

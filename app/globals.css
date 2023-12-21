@@ -49,7 +49,7 @@ body,
     --accent: rgb(41, 37, 36);
     --accent-foreground: rgb(250, 250, 249);
 
-    --destructive: rgb(127, 29, 29);
+    --destructive: rgb(185, 37, 37);
     --destructive-foreground: rgb(250, 250, 249);
 
     --border: rgb(41, 37, 36);
@@ -70,4 +70,11 @@ body,
 .tooltip-position:before {
   top: var(--top);
   left: var(--left);
+}
+
+.dropdown-item {
+  @apply hover:bg-secondary hover:font-bold text-sm;
+}
+.dropdown-item-destructive {
+  @apply text-destructive hover:text-destructive font-bold hover:font-extrabold;
 }

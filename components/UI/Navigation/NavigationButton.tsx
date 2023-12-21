@@ -17,7 +17,7 @@ const NavigationButton = ({ imageSrc, name, id }: { imageSrc: string; name: stri
         e.currentTarget.style.setProperty('--left', `${leftPosition}px`)
       }}
     >
-      <button className='btn btn-circle bg-secondary w-8 h-8 md:w-10 md:h-10' onClick={() => router.push(`server/${id}`)}>
+      <button className='btn btn-circle bg-secondary w-8 h-8 md:w-10 md:h-10' onClick={() => router.push(`/server/${id}`)}>
         <Image className='rounded-full' alt='Server icon' fill src={imageSrc} />
       </button>
     </span>

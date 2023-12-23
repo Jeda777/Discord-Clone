@@ -35,7 +35,13 @@ const ServerSidebar = async ({ serverId }: { serverId: string }) => {
       <div className='bg-foreground w-full h-0.5 md:h-[3px] rounded-lg self-center -mt-2'></div>
       <div className='flex flex-col w-full'>
         {server.channels.map((c) => (
-          <ServerChannel serverId={serverId} channelId={c.id} channelName={c.name} channelType={c.type} />
+          <ServerChannel
+            key={`${serverId}${c.id}`}
+            serverId={serverId}
+            channelId={c.id}
+            channelName={c.name}
+            channelType={c.type}
+          />
         ))}
       </div>
     </div>

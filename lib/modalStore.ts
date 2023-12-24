@@ -1,3 +1,4 @@
+import { Server } from '@prisma/client'
 import { create } from 'zustand'
 
 export type modalType =
@@ -11,16 +12,22 @@ export type modalType =
   | 'editChannel'
   | 'deleteMessage'
 
+interface modalData {
+  server?: Server
+}
+
 interface modalStoreInterface {
   type: modalType | null
+  data: modalData
   isOpen: boolean
-  open: (type: modalType) => void
+  open: (type: modalType, data?: modalData) => void
   close: () => void
 }
 
 export const modalStore = create<modalStoreInterface>((set) => ({
   type: null,
+  data: {},
   isOpen: false,
-  open: (type) => set({ isOpen: true, type }),
+  open: (type, data = {}) => set({ isOpen: true, type, data }),
   close: () => set({ isOpen: false, type: null }),
 }))

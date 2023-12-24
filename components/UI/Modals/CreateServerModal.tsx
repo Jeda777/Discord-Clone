@@ -14,7 +14,8 @@ const formSchema = zod.object({
 })
 
 const CreateServerModal = () => {
-  const { isOpen, close } = modalStore()
+  const { isOpen, type, close } = modalStore()
+  const isModalOpen = isOpen && type == 'createServer'
   const router = useRouter()
 
   const form = useForm({
@@ -38,7 +39,10 @@ const CreateServerModal = () => {
     }
   }
   return (
-    <div className={`modal ${isOpen ? 'visible opacity-100' : ''}`} onClick={(e) => (e.target == e.currentTarget ? close() : null)}>
+    <div
+      className={`modal ${isModalOpen ? 'visible opacity-100' : ''}`}
+      onClick={(e) => (e.target == e.currentTarget ? close() : null)}
+    >
       <div className='modal-overlay modal-content flex flex-col gap-8 justify-center bg-secondary-foreground text-secondary'>
         <h1 className='text-xl md:text-2xl text-center font-bold'>Create Server</h1>
         <form onSubmit={form.handleSubmit(onSubmit)} className='flex flex-col gap-4 justify-center items-center'>

@@ -73,8 +73,8 @@ body,
 }
 
 .dropdown-item {
-  @apply hover:bg-secondary hover:font-bold text-sm;
+  @apply hover:bg-secondary text-sm;
 }
 .dropdown-item-destructive {
-  @apply text-destructive hover:text-destructive font-bold hover:font-extrabold;
+  @apply text-destructive hover:text-destructive font-bold;
 }

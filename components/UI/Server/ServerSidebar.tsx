@@ -31,7 +31,7 @@ const ServerSidebar = async ({ serverId }: { serverId: string }) => {
   const role = server.members.find((member) => member.profileId === profile.id)?.role
   return (
     <div className='h-full bg-secondary text-primary flex flex-col w-44 items-end p-2 gap-2'>
-      <ServerHeader id={server.id} name={server.name} role={role} />
+      <ServerHeader server={server} role={role} />
       <div className='bg-foreground w-full h-0.5 md:h-[3px] rounded-lg self-center -mt-2'></div>
       <div className='flex flex-col w-full'>
         {server.channels.map((c) => (

@@ -6,8 +6,7 @@ export const currentProfile = async () => {
 
   if (!user) return redirectToSignIn()
 
-  const profile = db.profile.findUnique({ where: { userId: user.id } })
-
+  const profile = await db.profile.findUnique({ where: { userId: user.id } })
   if (profile) return profile
 
   const newProfile = await db.profile.create({

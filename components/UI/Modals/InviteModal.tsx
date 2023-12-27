@@ -1,12 +1,13 @@
 'use client'
 
+import { useOrigin } from '@/hooks/useOrigin'
 import { modalStore } from '@/lib/modalStore'
 
 const InviteModal = () => {
   const { isOpen, type, close, data } = modalStore()
   const isModalOpen = isOpen && type == 'invite'
   const { server } = data
-  const pathname = window.location.origin
+  const pathname = useOrigin()
   const inviteLink = `${pathname}/invite/${server?.inviteCode}`
 
   return (

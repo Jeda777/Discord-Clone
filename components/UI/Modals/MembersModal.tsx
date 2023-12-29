@@ -14,7 +14,7 @@ const MembersModal = () => {
       className={`modal ${isModalOpen ? 'visible opacity-100' : ''}`}
       onClick={(e) => (e.target == e.currentTarget ? close() : null)}
     >
-      <div className='modal-overlay modal-content flex flex-col gap-8 justify-center bg-secondary-foreground text-secondary'>
+      <div className='modal-overlay modal-content flex flex-col gap-8 justify-center bg-background text-primary'>
         <h1 className='text-xl md:text-2xl text-center font-bold'>Members</h1>
         <div className='flex flex-col gap-3 py-2 overflow-scroll max-h-96 hide-scrollbar'>
           {server?.members.map((m) => (

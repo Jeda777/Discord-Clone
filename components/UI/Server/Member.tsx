@@ -7,11 +7,14 @@ const Member = ({ memberId, role, name, imageUrl }: { memberId: string; role: Me
   const { open } = modalSecondLayerStore()
 
   return (
-    <div className='card dropdown p-2'>
+    <div className='card dropdown p-2 bg-secondary'>
       <button className='flex flex-row items-center w-64 gap-2'>
         <Image alt='Member avatar' src={imageUrl} width={32} height={32} className='rounded-full aspect-square' />
-        <p className='text-lg font-semibold overflow-clip'>{name}</p>
-        <IoEllipsisHorizontal className='text-2xl text-secondary ml-auto' />
+        <div className='flex flex-col gap-0.5 items-start'>
+          <p className='text-lg font-semibold overflow-clip'>{name}</p>
+          <p className='text-sm'>{role.charAt(0) + role.slice(1).toLowerCase()}</p>
+        </div>
+        <IoEllipsisHorizontal className='text-2xl text-primary ml-auto' />
       </button>
       <div className='dropdown-menu dropdown-menu-bottom-left bg-background text-primary'>
         <button className='dropdown-item text-sm' onClick={() => open('changeRole', { memberId, memberRole: role })}>

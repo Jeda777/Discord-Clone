@@ -18,7 +18,7 @@ const MembersModal = () => {
         <h1 className='text-xl md:text-2xl text-center font-bold'>Members</h1>
         <div className='flex flex-col gap-3 py-2 overflow-scroll max-h-96 hide-scrollbar'>
           {server?.members.map((m) => (
-            <Member id={m.profileId} name={m.profile.name} imageUrl={m.profile.imageUrl} />
+            <Member memberId={m.id} role={m.role} name={m.profile.name} imageUrl={m.profile.imageUrl} />
           ))}
         </div>
         <button

@@ -3,16 +3,16 @@ import { create } from 'zustand'
 
 export type modalSecondLayerType = 'removeMember' | 'changeRole'
 
-interface modalData {
+interface modalSecondLayerData {
   memberId?: string
   memberRole?: MemberRole
 }
 
 interface modalStoreInterface {
   type: modalSecondLayerType | null
-  data: modalData
+  data: modalSecondLayerData
   isOpen: boolean
-  open: (type: modalSecondLayerType, data?: modalData) => void
+  open: (type: modalSecondLayerType, data?: modalSecondLayerData) => void
   close: () => void
 }
 

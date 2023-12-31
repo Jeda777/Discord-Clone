@@ -29,4 +29,22 @@ const changeMemberRoleAction = async ({
   return server
 }
 
-export { changeMemberRoleAction }
+const removeServerMemberAction = async ({ serverId, memberId }: { serverId: string; memberId: string }) => {
+  const server = await db.server.update({
+    where: { id: serverId },
+    data: { members: { delete: { id: memberId } } },
+    include: {
+      members: {
+        include: {
+          profile: true,
+        },
+        orderBy: {
+          role: 'asc',
+        },
+      },
+    },
+  })
+  return server
+}
+
+export { changeMemberRoleAction, removeServerMemberAction }

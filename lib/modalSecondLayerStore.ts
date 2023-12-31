@@ -7,6 +7,7 @@ interface modalSecondLayerData {
   serverId?: string
   memberId?: string
   memberRole?: MemberRole
+  memberName?: string
 }
 
 interface modalStoreInterface {

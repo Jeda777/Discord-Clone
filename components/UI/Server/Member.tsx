@@ -35,7 +35,10 @@ const Member = ({
         >
           Change Role
         </button>
-        <button className='dropdown-item text-sm' onClick={() => openSecond('removeMember', { serverId, memberId })}>
+        <button
+          className='dropdown-item text-sm'
+          onClick={() => openSecond('removeMember', { serverId, memberId, memberName: name })}
+        >
           Remove Member
         </button>
       </div>

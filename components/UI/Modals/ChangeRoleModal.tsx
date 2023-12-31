@@ -1,3 +1,5 @@
+'use client'
+
 import { changeMemberRoleAction } from '@/app/actions'
 import { modalSecondLayerStore } from '@/lib/modalSecondLayerStore'
 import { modalStore } from '@/lib/modalStore'

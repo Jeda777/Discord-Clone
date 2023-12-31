@@ -1,11 +1,15 @@
 import { changeMemberRoleAction } from '@/app/actions'
 import { modalSecondLayerStore } from '@/lib/modalSecondLayerStore'
+import { modalStore } from '@/lib/modalStore'
 import { MemberRole } from '@prisma/client'
+import { useRouter } from 'next/navigation'
 
 const ChangeRoleModal = () => {
-  const { isOpen, type, close, data } = modalSecondLayerStore()
-  const isModalOpen = isOpen && type == 'changeRole'
-  const { memberId, memberRole } = data
+  const router = useRouter()
+  const { isOpenSecond, typeSecond, closeSecond, dataSecond } = modalSecondLayerStore()
+  const { open, close } = modalStore()
+  const isModalOpen = isOpenSecond && typeSecond == 'changeRole'
+  const { serverId, memberId, memberRole } = dataSecond
 
   const roleMap = new Map([
     ['ADMIN', MemberRole.ADMIN],
@@ -19,15 +23,19 @@ const ChangeRoleModal = () => {
     if (!newRoleMapped) return null
     newRole = newRoleMapped
   }
-  const handleSubmit = () => {
-    if (!memberId || !newRole) return null
-    changeMemberRoleAction({ newRole, memberId })
+  const handleSubmit = async () => {
+    if (!memberId || !newRole || !serverId) return null
+    const server = await changeMemberRoleAction({ serverId, newRole, memberId })
+    console.log('refresh')
+    router.refresh()
+    closeSecond()
     close()
+    open('members', { server })
   }
 
   if (isModalOpen)
     return (
-      <div className={`modal z-[70] visible opacity-100`} onClick={(e) => (e.target == e.currentTarget ? close() : null)}>
+      <div className={`modal z-[70] visible opacity-100`} onClick={(e) => (e.target == e.currentTarget ? closeSecond() : null)}>
         <div className='modal-overlay modal-content flex flex-col gap-8 justify-center bg-background text-primary'>
           <h1 className='text-xl md:text-2xl text-center font-bold'>Change Role</h1>
           <select className='select select-block' defaultValue={memberRole} onChange={(e) => handleChange(e.target.value)}>

@@ -3,8 +3,20 @@ import { MemberRole } from '@prisma/client'
 import Image from 'next/image'
 import { IoEllipsisHorizontal } from 'react-icons/io5'
 
-const Member = ({ memberId, role, name, imageUrl }: { memberId: string; role: MemberRole; name: string; imageUrl: string }) => {
-  const { open } = modalSecondLayerStore()
+const Member = ({
+  serverId,
+  memberId,
+  role,
+  name,
+  imageUrl,
+}: {
+  serverId: string
+  memberId: string
+  role: MemberRole
+  name: string
+  imageUrl: string
+}) => {
+  const { openSecond } = modalSecondLayerStore()
 
   return (
     <div className='card dropdown p-2 bg-secondary'>
@@ -17,10 +29,13 @@ const Member = ({ memberId, role, name, imageUrl }: { memberId: string; role: Me
         <IoEllipsisHorizontal className='text-2xl text-primary ml-auto' />
       </button>
       <div className='dropdown-menu dropdown-menu-bottom-left bg-background text-primary'>
-        <button className='dropdown-item text-sm' onClick={() => open('changeRole', { memberId, memberRole: role })}>
+        <button
+          className='dropdown-item text-sm'
+          onClick={() => openSecond('changeRole', { serverId, memberId, memberRole: role })}
+        >
           Change Role
         </button>
-        <button className='dropdown-item text-sm' onClick={() => open('removeMember', { memberId })}>
+        <button className='dropdown-item text-sm' onClick={() => openSecond('removeMember', { serverId, memberId })}>
           Remove Member
         </button>
       </div>

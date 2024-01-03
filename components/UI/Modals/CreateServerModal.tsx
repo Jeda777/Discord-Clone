@@ -2,16 +2,12 @@
 
 import { modalStore } from '@/lib/modalStore'
 import { useForm } from 'react-hook-form'
-import * as zod from 'zod'
+import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import FileUpload from '../FileUpload'
-import axios, { AxiosResponse } from 'axios'
 import { useRouter } from 'next/navigation'
-
-const formSchema = zod.object({
-  name: zod.string().min(1),
-  imageUrl: zod.string().min(1),
-})
+import { createServerFormDataSchema } from '@/lib/schema'
+import { createServerAction } from '@/app/actions'
 
 const CreateServerModal = () => {
   const { isOpen, type, close } = modalStore()
@@ -19,7 +15,7 @@ const CreateServerModal = () => {
   const router = useRouter()
 
   const form = useForm({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(createServerFormDataSchema),
     defaultValues: {
       name: '',
       imageUrl: '',
@@ -27,16 +23,12 @@ const CreateServerModal = () => {
   })
   const isLoading = form.formState.isSubmitting
 
-  const onSubmit = async (data: zod.infer<typeof formSchema>) => {
-    try {
-      await axios.post('/api/server', data).then((res: AxiosResponse) => {
-        form.reset()
-        const { data } = res
-        router.push(`/server/${data}`)
-      })
-    } catch (error) {
-      console.log(error)
-    }
+  const onSubmit = async (data: z.infer<typeof createServerFormDataSchema>) => {
+    const serverId = await createServerAction(data)
+    form.reset()
+    router.push(`/server/${serverId}`)
+    router.refresh()
+    close()
   }
   return (
     <div

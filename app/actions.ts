@@ -6,7 +6,6 @@ import { createServerFormDataSchema } from '@/lib/schema'
 import { MemberRole } from '@prisma/client'
 import { z } from 'zod'
 import { v4 as uuid } from 'uuid'
-import { NextResponse } from 'next/server'
 
 const createServerAction = async (data: z.infer<typeof createServerFormDataSchema>) => {
   const profile = await currentProfile()

@@ -1,34 +1,15 @@
-import { db } from '@/lib/db'
 import ServerHeader from './ServerHeader'
-import { currentProfile } from '@/lib/currentProfile'
-import { redirect } from 'next/navigation'
 import ServerChannel from './ServerChannel'
+import { ServerWithChannelsWithMembersWithProfiles } from '@/types'
+import { MemberRole } from '@prisma/client'
 
-const ServerSidebar = async ({ serverId }: { serverId: string }) => {
-  const profile = await currentProfile()
-  const server = await db.server.findUnique({
-    where: {
-      id: serverId,
-    },
-    include: {
-      channels: {
-        orderBy: {
-          createdAt: 'asc',
-        },
-      },
-      members: {
-        include: {
-          profile: true,
-        },
-        orderBy: {
-          role: 'asc',
-        },
-      },
-    },
-  })
-  if (!server) return redirect('/')
-
-  const role = server.members.find((member) => member.profileId === profile.id)?.role
+const ServerSidebar = async ({
+  server,
+  role,
+}: {
+  server: ServerWithChannelsWithMembersWithProfiles
+  role: MemberRole | undefined
+}) => {
   return (
     <div className='h-full bg-secondary text-primary flex flex-col w-44 items-end p-2 gap-2'>
       <ServerHeader server={server} role={role} />
@@ -36,8 +17,8 @@ const ServerSidebar = async ({ serverId }: { serverId: string }) => {
       <div className='flex flex-col w-full'>
         {server.channels.map((c) => (
           <ServerChannel
-            key={`${serverId}${c.id}`}
-            serverId={serverId}
+            key={`${server.id}${c.id}`}
+            serverId={server.id}
             channelId={c.id}
             channelName={c.name}
             channelType={c.type}

@@ -1,3 +1,4 @@
+import MembersSideBar from '@/components/UI/Server/MembersSideBar'
 import ServerSidebar from '@/components/UI/Server/ServerSidebar'
 import { currentProfile } from '@/lib/currentProfile'
 import { db } from '@/lib/db'
@@ -28,10 +29,13 @@ const ChannelPage = async ({ params }: { params: { serverId: string; channelId: 
   if (!server) return redirect('/')
 
   const role = server.members.find((member) => member.profileId === profile.id)?.role
+  if (!role) return redirect('/')
 
   return (
-    <div className='h-full w-full'>
+    <div className='h-full w-full flex'>
       <ServerSidebar server={server} role={role} />
+      <div className='w-full'></div>
+      <MembersSideBar server={server} role={role} />
     </div>
   )
 }

@@ -25,7 +25,7 @@ const ServerHeader = ({ server, role }: { server: ServerWithMembersWithProfiles;
         )}
         {/* //TODO implement server settings */}
         {isAdmin && <button className='dropdown-item'>Server Settings</button>}
-        <button className='dropdown-item lg:hidden' onClick={() => open('members', { server })}>
+        <button className='dropdown-item lg:hidden' onClick={() => open('members', { server, isModerator })}>
           Members
         </button>
         {/* //TODO implement channel creation */}

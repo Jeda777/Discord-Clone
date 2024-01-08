@@ -5,12 +5,14 @@ import { IoEllipsisHorizontal } from 'react-icons/io5'
 
 const Member = ({
   serverId,
+  isModerator,
   memberId,
   role,
   name,
   imageUrl,
 }: {
   serverId: string
+  isModerator: boolean
   memberId: string
   role: MemberRole
   name: string
@@ -29,18 +31,24 @@ const Member = ({
         <IoEllipsisHorizontal className='text-2xl text-primary ml-auto' />
       </button>
       <div className='dropdown-menu dropdown-menu-bottom-left bg-background text-primary'>
-        <button
-          className='dropdown-item text-sm'
-          onClick={() => openSecond('changeRole', { serverId, memberId, memberRole: role })}
-        >
-          Change Role
-        </button>
-        <button
-          className='dropdown-item text-sm'
-          onClick={() => openSecond('removeMember', { serverId, memberId, memberName: name })}
-        >
-          Remove Member
-        </button>
+        {/* TODO redirect to private conversation */}
+        <button className='dropdown-item text-sm'>Conversation</button>
+        {isModerator && (
+          <button
+            className='dropdown-item text-sm'
+            onClick={() => openSecond('changeRole', { serverId, memberId, memberRole: role })}
+          >
+            Change Role
+          </button>
+        )}
+        {isModerator && (
+          <button
+            className='dropdown-item text-sm'
+            onClick={() => openSecond('removeMember', { serverId, memberId, memberName: name })}
+          >
+            Remove Member
+          </button>
+        )}
       </div>
     </div>
   )

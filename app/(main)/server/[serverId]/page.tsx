@@ -29,12 +29,13 @@ const ServerPage = async ({ params }: { params: { serverId: string } }) => {
   if (!server) return redirect('/')
 
   const role = server.members.find((member) => member.profileId === profile.id)?.role
+  if (!role) return redirect('/')
 
   return (
     <div className='h-full w-full flex'>
       <ServerSidebar server={server} role={role} />
       <div className='w-full'></div>
-      <MembersSideBar server={server} />
+      <MembersSideBar server={server} role={role} />
     </div>
   )
 }

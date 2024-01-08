@@ -7,7 +7,7 @@ import { ServerWithMembersWithProfiles } from '@/types'
 const MembersModal = () => {
   const { isOpen, type, close, data } = modalStore()
   const isModalOpen = isOpen && type == 'members'
-  const { server } = data as { server: ServerWithMembersWithProfiles }
+  const { server, isModerator } = data as { server: ServerWithMembersWithProfiles; isModerator: boolean }
 
   return (
     <div
@@ -18,7 +18,14 @@ const MembersModal = () => {
         <h1 className='text-xl md:text-2xl text-center font-bold'>Members</h1>
         <div className='flex flex-col gap-3 py-2 overflow-scroll max-h-96 hide-scrollbar'>
           {server?.members.map((m) => (
-            <Member serverId={server.id} memberId={m.id} role={m.role} name={m.profile.name} imageUrl={m.profile.imageUrl} />
+            <Member
+              serverId={server.id}
+              isModerator={isModerator}
+              memberId={m.id}
+              role={m.role}
+              name={m.profile.name}
+              imageUrl={m.profile.imageUrl}
+            />
           ))}
         </div>
         <button

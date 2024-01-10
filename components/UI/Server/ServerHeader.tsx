@@ -23,8 +23,11 @@ const ServerHeader = ({ server, role }: { server: ServerWithMembersWithProfiles;
             Invite Friends
           </button>
         )}
-        {/* //TODO implement server settings */}
-        {isAdmin && <button className='dropdown-item'>Server Settings</button>}
+        {isAdmin && (
+          <button className='dropdown-item' onClick={() => open('editServer', { server })}>
+            Server Settings
+          </button>
+        )}
         <button className='dropdown-item lg:hidden' onClick={() => open('members', { server, isModerator })}>
           Members
         </button>

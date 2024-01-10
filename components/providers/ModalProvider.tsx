@@ -5,6 +5,7 @@ import CreateServerModal from '../UI/Modals/CreateServerModal'
 import InviteModal from '../UI/Modals/InviteModal'
 import MembersModal from '../UI/Modals/MembersModal'
 import RemoveMemberModal from '../UI/Modals/RemoveMemberModal'
+import ServerSettingsModal from '../UI/Modals/ServerSettingsModal'
 
 const ModalProvider = () => {
   return (
@@ -14,6 +15,7 @@ const ModalProvider = () => {
       <MembersModal />
       <ChangeRoleModal />
       <RemoveMemberModal />
+      <ServerSettingsModal />
     </div>
   )
 }

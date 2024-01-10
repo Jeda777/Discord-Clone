@@ -28,7 +28,6 @@ const ChangeRoleModal = () => {
   const handleSubmit = async () => {
     if (!memberId || !newRole || !serverId) return null
     const server = await changeMemberRoleAction({ serverId, newRole, memberId })
-    console.log('refresh')
     router.refresh()
     closeSecond()
     close()

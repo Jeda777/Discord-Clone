@@ -15,7 +15,6 @@ const RemoveMemberModal = () => {
   const handleSubmit = async () => {
     if (!memberId || !serverId) return null
     const server = await removeServerMemberAction({ serverId, memberId })
-    console.log('refresh')
     router.refresh()
     closeSecond()
     close()

@@ -19,6 +19,7 @@ const MembersModal = () => {
         <div className='flex flex-col gap-3 py-2 overflow-scroll max-h-96 hide-scrollbar'>
           {server?.members.map((m) => (
             <Member
+              key={m.id}
               serverId={server.id}
               isModerator={isModerator}
               memberId={m.id}

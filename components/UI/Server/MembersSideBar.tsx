@@ -17,6 +17,7 @@ const MembersSideBar = ({ server, role }: { server: ServerWithMembersWithProfile
       <div className='divider divider-horizontal w-full text-sm mt-2 -mb-1'>Admin</div>
       {admins.map((m) => (
         <MemberSidebarItem
+          key={m.id}
           serverId={server.id}
           isModerator={isModerator}
           memberId={m.id}
@@ -29,6 +30,7 @@ const MembersSideBar = ({ server, role }: { server: ServerWithMembersWithProfile
 
       {moderators.map((m) => (
         <MemberSidebarItem
+          key={m.id}
           serverId={server.id}
           isModerator={isModerator}
           memberId={m.id}
@@ -41,6 +43,7 @@ const MembersSideBar = ({ server, role }: { server: ServerWithMembersWithProfile
 
       {guests.map((m) => (
         <MemberSidebarItem
+          key={m.id}
           serverId={server.id}
           isModerator={isModerator}
           memberId={m.id}

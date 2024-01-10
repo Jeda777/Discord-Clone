@@ -25,6 +25,17 @@ const createServerAction = async (data: z.infer<typeof createServerFormDataSchem
   return server.id
 }
 
+const updateServerAction = async ({ data, serverId }: { data: z.infer<typeof createServerFormDataSchema>; serverId: string }) => {
+  const { name, imageUrl } = data
+
+  const server = await db.server.update({
+    where: { id: serverId },
+    data: { name: name, imageUrl: imageUrl },
+  })
+
+  return server
+}
+
 const changeMemberRoleAction = async ({
   serverId,
   newRole,
@@ -69,4 +80,4 @@ const removeServerMemberAction = async ({ serverId, memberId }: { serverId: stri
   return server
 }
 
-export { createServerAction, changeMemberRoleAction, removeServerMemberAction }
+export { createServerAction, updateServerAction, changeMemberRoleAction, removeServerMemberAction }

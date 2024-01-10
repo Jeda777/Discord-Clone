@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import FileUpload from '../FileUpload'
 import { useEffect } from 'react'
+import { updateServerAction } from '@/app/actions'
 
 const ServerSettingsModal = () => {
   const router = useRouter()
@@ -32,20 +33,20 @@ const ServerSettingsModal = () => {
 
   const isLoading = form.formState.isSubmitting
 
-  //   const onSubmit = async (data: z.infer<typeof createServerFormDataSchema>) => {
-  //     const serverId = await updateServerAction(data)
-  //     form.reset()
-  //     router.push(`/server/${serverId}`)
-  //     router.refresh()
-  //     close()
-  //   }
+  const onSubmit = async (data: z.infer<typeof createServerFormDataSchema>) => {
+    if (!server) return close()
+    const newServer = await updateServerAction({ data, serverId: server?.id })
+    form.reset()
+    router.refresh()
+    close()
+  }
 
   if (isModalOpen)
     return (
       <div className={`modal z-[70] visible opacity-100`} onClick={(e) => (e.target == e.currentTarget ? close() : null)}>
         <div className='modal-overlay modal-content flex flex-col gap-4 justify-center bg-background text-primary w-96'>
           <h1 className='text-xl md:text-2xl text-center font-bold mb-4'>{server?.name} Settings</h1>
-          <form /*onSubmit={form.handleSubmit(onSubmit)}*/ className='flex flex-col gap-4 justify-center items-center'>
+          <form onSubmit={form.handleSubmit(onSubmit)} className='flex flex-col gap-4 justify-center items-center'>
             <input
               disabled={isLoading}
               className='input input-solid max-w-full'

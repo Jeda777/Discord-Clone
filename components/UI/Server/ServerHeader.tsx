@@ -33,8 +33,11 @@ const ServerHeader = ({ server, role }: { server: ServerWithMembersWithProfiles;
         </button>
         {/* //TODO implement channel creation */}
         {isModerator && <button className='dropdown-item'>Create Channel</button>}
-        {/* //TODO implement server delete */}
-        {isAdmin && <button className='dropdown-item dropdown-item-destructive'>Delete Server</button>}
+        {isAdmin && (
+          <button className='dropdown-item dropdown-item-destructive' onClick={() => open('deleteServer', { server })}>
+            Delete Server
+          </button>
+        )}
         {/* //TODO implement leave server */}
         <button className='dropdown-item dropdown-item-destructive'>Leave Server</button>
       </div>

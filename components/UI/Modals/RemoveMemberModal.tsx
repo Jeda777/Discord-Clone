@@ -12,16 +12,15 @@ const RemoveMemberModal = () => {
   const isModalOpen = isOpenSecond && typeSecond == 'removeMember'
   const { serverId, memberId, memberName } = dataSecond
 
-  const handleSubmit = async () => {
-    if (!memberId || !serverId) return null
-    const server = await removeServerMemberAction({ serverId, memberId })
-    router.refresh()
-    closeSecond()
-    close()
-    open('members', { server })
-  }
+  if (isModalOpen && serverId && memberId && memberName) {
+    const handleSubmit = async () => {
+      const server = await removeServerMemberAction({ serverId, memberId })
+      router.refresh()
+      closeSecond()
+      close()
+      open('members', { server })
+    }
 
-  if (isModalOpen)
     return (
       <div className={`modal z-[70] visible opacity-100`} onClick={(e) => (e.target == e.currentTarget ? closeSecond() : null)}>
         <div className='modal-overlay modal-content flex flex-col gap-8 justify-center bg-background text-primary w-96'>
@@ -37,7 +36,7 @@ const RemoveMemberModal = () => {
         </div>
       </div>
     )
-  return null
+  }
 }
 
 export default RemoveMemberModal

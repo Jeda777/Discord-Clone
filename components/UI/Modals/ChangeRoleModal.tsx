@@ -25,16 +25,17 @@ const ChangeRoleModal = () => {
     if (!newRoleMapped) return null
     newRole = newRoleMapped
   }
-  const handleSubmit = async () => {
-    if (!memberId || !newRole || !serverId) return null
-    const server = await changeMemberRoleAction({ serverId, newRole, memberId })
-    router.refresh()
-    closeSecond()
-    close()
-    open('members', { server })
-  }
 
-  if (isModalOpen)
+  if (isModalOpen && serverId && memberId) {
+    const handleSubmit = async () => {
+      if (!newRole) return null
+      const server = await changeMemberRoleAction({ serverId, newRole, memberId })
+      router.refresh()
+      closeSecond()
+      close()
+      open('members', { server })
+    }
+
     return (
       <div className={`modal z-[70] visible opacity-100`} onClick={(e) => (e.target == e.currentTarget ? closeSecond() : null)}>
         <div className='modal-overlay modal-content flex flex-col gap-8 justify-center bg-background text-primary'>
@@ -50,7 +51,7 @@ const ChangeRoleModal = () => {
         </div>
       </div>
     )
-  return null
+  }
 }
 
 export default ChangeRoleModal

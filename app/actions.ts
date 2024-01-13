@@ -36,6 +36,12 @@ const updateServerAction = async ({ data, serverId }: { data: z.infer<typeof cre
   return server
 }
 
+const removeServerAction = async ({ serverId }: { serverId: string }) => {
+  const server = await db.server.delete({ where: { id: serverId } })
+
+  return server
+}
+
 const changeMemberRoleAction = async ({
   serverId,
   newRole,
@@ -80,4 +86,4 @@ const removeServerMemberAction = async ({ serverId, memberId }: { serverId: stri
   return server
 }
 
-export { createServerAction, updateServerAction, changeMemberRoleAction, removeServerMemberAction }
+export { createServerAction, updateServerAction, removeServerAction, changeMemberRoleAction, removeServerMemberAction }

@@ -1,5 +1,6 @@
 'use client'
 
+import { removeServerAction } from '@/app/actions'
 import { modalStore } from '@/lib/modalStore'
 import { useRouter } from 'next/navigation'
 
@@ -11,8 +12,9 @@ const DeleteServerModal = () => {
   if (!server) return close()
 
   const handleSubmit = async () => {
-    //const newServer = await removeServerMemberAction({ serverId, memberId })
+    const newServer = await removeServerAction({ serverId: server.id })
     router.push('/')
+    router.refresh()
     close()
   }
 

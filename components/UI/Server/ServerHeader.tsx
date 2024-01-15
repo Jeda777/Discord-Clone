@@ -31,8 +31,11 @@ const ServerHeader = ({ server, role }: { server: ServerWithMembersWithProfiles;
         <button className='dropdown-item lg:hidden' onClick={() => open('members', { server, isModerator })}>
           Members
         </button>
-        {/* //TODO implement channel creation */}
-        {isModerator && <button className='dropdown-item'>Create Channel</button>}
+        {isModerator && (
+          <button className='dropdown-item' onClick={() => open('createChannel', { server })}>
+            Create Channel
+          </button>
+        )}
         {isAdmin && (
           <button className='dropdown-item dropdown-item-destructive' onClick={() => open('deleteServer', { server })}>
             Delete Server

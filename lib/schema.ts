@@ -5,4 +5,9 @@ const createServerFormDataSchema = z.object({
   imageUrl: z.string().min(1),
 })
 
-export { createServerFormDataSchema }
+const createChannelFormDataSchema = z.object({
+  name: z.string().min(1),
+  type: z.string().min(1),
+})
+
+export { createServerFormDataSchema, createChannelFormDataSchema }

@@ -3,7 +3,7 @@
 import { currentProfile } from '@/lib/currentProfile'
 import { db } from '@/lib/db'
 import { createServerFormDataSchema } from '@/lib/schema'
-import { MemberRole } from '@prisma/client'
+import { ChannelType, MemberRole } from '@prisma/client'
 import { z } from 'zod'
 import { v4 as uuid } from 'uuid'
 
@@ -39,6 +39,24 @@ const updateServerAction = async ({ data, serverId }: { data: z.infer<typeof cre
 const removeServerAction = async ({ serverId }: { serverId: string }) => {
   const server = await db.server.delete({ where: { id: serverId } })
 
+  return server
+}
+
+const createChannelAction = async ({ serverId, name, type }: { serverId: string; name: string; type: string }) => {
+  const profile = await currentProfile()
+
+  const typeMap = new Map([
+    ['0', ChannelType.TEXT],
+    ['1', ChannelType.AUDIO],
+    ['2', ChannelType.VIDEO],
+  ])
+  const getType = typeMap.get(type)
+  if (!getType) return null
+
+  const server = await db.server.update({
+    where: { id: serverId },
+    data: { channels: { create: { profileId: profile.id, name, type: getType } } },
+  })
   return server
 }
 
@@ -86,4 +104,11 @@ const removeServerMemberAction = async ({ serverId, memberId }: { serverId: stri
   return server
 }
 
-export { createServerAction, updateServerAction, removeServerAction, changeMemberRoleAction, removeServerMemberAction }
+export {
+  createServerAction,
+  updateServerAction,
+  removeServerAction,
+  createChannelAction,
+  changeMemberRoleAction,
+  removeServerMemberAction,
+}

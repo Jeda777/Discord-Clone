@@ -1,52 +1,53 @@
 'use client'
 
 import { modalStore } from '@/lib/modalStore'
-import { useForm } from 'react-hook-form'
+import { createChannelFormDataSchema } from '@/lib/schema'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import FileUpload from '../FileUpload'
 import { useRouter } from 'next/navigation'
-import { createServerFormDataSchema } from '@/lib/schema'
-import { createServerAction } from '@/app/actions'
+import { useForm } from 'react-hook-form'
+import { createChannelAction } from '@/app/actions'
 
-const CreateServerModal = () => {
-  const { isOpen, type, close } = modalStore()
-  const isModalOpen = isOpen && type == 'createServer'
+const CreateChannelModal = () => {
+  const { isOpen, type, close, data } = modalStore()
+  const isModalOpen = isOpen && type == 'createChannel'
+  const { server } = data
   const router = useRouter()
 
   const form = useForm({
-    resolver: zodResolver(createServerFormDataSchema),
+    resolver: zodResolver(createChannelFormDataSchema),
     defaultValues: {
       name: '',
-      imageUrl: '',
+      type: '0',
     },
   })
   const isLoading = form.formState.isSubmitting
 
-  const onSubmit = async (data: z.infer<typeof createServerFormDataSchema>) => {
-    const serverId = await createServerAction(data)
-    form.reset()
-    router.push(`/server/${serverId}`)
-    router.refresh()
-    close()
-  }
+  if (isModalOpen && server) {
+    const onSubmit = async (data: z.infer<typeof createChannelFormDataSchema>) => {
+      const newServer = await createChannelAction({ serverId: server.id, name: data.name, type: data.type })
+      form.reset()
+      router.refresh()
+      close()
+    }
 
-  if (isModalOpen)
     return (
       <div className={`modal visible opacity-100`} onClick={(e) => (e.target == e.currentTarget ? close() : null)}>
         <div className='modal-overlay modal-content flex flex-col gap-8 justify-center bg-secondary-foreground text-secondary'>
-          <h1 className='text-xl md:text-2xl text-center font-bold'>Create Server</h1>
+          <h1 className='text-xl md:text-2xl text-center font-bold'>Create Channel</h1>
           <form onSubmit={form.handleSubmit(onSubmit)} className='flex flex-col gap-4 justify-center items-center'>
             <input
               disabled={isLoading}
               className='input input-solid max-w-full'
               {...form.register('name')}
-              placeholder='Server name'
+              placeholder='Channel name'
               type='text'
             />
-            <div>
-              <FileUpload endpoint='serverImage' onChange={form.setValue} value={form.watch().imageUrl} isLoading={isLoading} />
-            </div>
+            <select disabled={isLoading} className='select select-block' {...form.register('type')}>
+              <option value='0'>Text</option>
+              <option value='1'>Audio</option>
+              <option value='2'>Video</option>
+            </select>
             <button disabled={isLoading} type='submit' className='btn btn-block bg-indigo-500 text-white text-lg font-semibold'>
               Create
             </button>
@@ -54,6 +55,7 @@ const CreateServerModal = () => {
         </div>
       </div>
     )
+  }
 }
 
-export default CreateServerModal
+export default CreateChannelModal

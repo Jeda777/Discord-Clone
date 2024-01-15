@@ -1,6 +1,7 @@
 'use client'
 
 import ChangeRoleModal from '../UI/Modals/ChangeRoleModal'
+import CreateChannelModal from '../UI/Modals/CreateChannelModal'
 import CreateServerModal from '../UI/Modals/CreateServerModal'
 import DeleteServerModal from '../UI/Modals/DeleteServerModal'
 import InviteModal from '../UI/Modals/InviteModal'
@@ -18,6 +19,7 @@ const ModalProvider = () => {
       <RemoveMemberModal />
       <ServerSettingsModal />
       <DeleteServerModal />
+      <CreateChannelModal />
     </div>
   )
 }

@@ -33,7 +33,7 @@ const ChannelPage = async ({ params }: { params: { serverId: string; channelId: 
 
   return (
     <div className='h-full w-full flex'>
-      <ServerSidebar server={server} role={role} />
+      <ServerSidebar server={server} role={role} profileId={profile.id} />
       <div className='w-full'></div>
       <MembersSideBar server={server} role={role} />
     </div>

@@ -2,10 +2,18 @@
 
 import { modalStore } from '@/lib/modalStore'
 import { ServerWithMembersWithProfiles } from '@/types'
-import { $Enums, MemberRole } from '@prisma/client'
+import { MemberRole } from '@prisma/client'
 import { IoChevronDown } from 'react-icons/io5'
 
-const ServerHeader = ({ server, role }: { server: ServerWithMembersWithProfiles; role: $Enums.MemberRole | undefined }) => {
+const ServerHeader = ({
+  server,
+  role,
+  profileId,
+}: {
+  server: ServerWithMembersWithProfiles
+  role: MemberRole
+  profileId: string
+}) => {
   const isAdmin = role === MemberRole.ADMIN
   const isModerator = isAdmin || role === MemberRole.MODERATOR
 
@@ -41,8 +49,9 @@ const ServerHeader = ({ server, role }: { server: ServerWithMembersWithProfiles;
             Delete Server
           </button>
         )}
-        {/* //TODO implement leave server */}
-        <button className='dropdown-item dropdown-item-destructive'>Leave Server</button>
+        <button className='dropdown-item dropdown-item-destructive' onClick={() => open('leaveServer', { server, profileId })}>
+          Leave Server
+        </button>
       </div>
     </div>
   )

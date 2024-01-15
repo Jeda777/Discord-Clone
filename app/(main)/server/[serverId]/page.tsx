@@ -33,7 +33,7 @@ const ServerPage = async ({ params }: { params: { serverId: string } }) => {
 
   return (
     <div className='h-full w-full flex'>
-      <ServerSidebar server={server} role={role} />
+      <ServerSidebar server={server} role={role} profileId={profile.id} />
       <div className='w-full'></div>
       <MembersSideBar server={server} role={role} />
     </div>

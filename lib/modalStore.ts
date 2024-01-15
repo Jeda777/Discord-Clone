@@ -16,6 +16,7 @@ export type modalType =
 interface modalData {
   server?: Server
   isModerator?: boolean
+  profileId?: string
 }
 
 interface modalStoreInterface {

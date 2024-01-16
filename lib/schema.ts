@@ -10,4 +10,8 @@ const createChannelFormDataSchema = z.object({
   type: z.string().min(1),
 })
 
-export { createServerFormDataSchema, createChannelFormDataSchema }
+const changeChannelFormDataSchema = z.object({
+  name: z.string().min(1),
+})
+
+export { createServerFormDataSchema, createChannelFormDataSchema, changeChannelFormDataSchema }

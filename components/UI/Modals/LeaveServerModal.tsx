@@ -1,5 +1,6 @@
 'use client'
 
+import { leaveServerAction } from '@/app/actions'
 import { modalStore } from '@/lib/modalStore'
 import { useRouter } from 'next/navigation'
 
@@ -11,7 +12,7 @@ const LeaveServerModal = () => {
 
   if (isModalOpen && server && profileId) {
     const handleSubmit = async () => {
-      //const newServer = await removeServerAction({ serverId: server.id })
+      const newServer = await leaveServerAction({ serverId: server.id, profileId })
       router.push('/')
       router.refresh()
       close()

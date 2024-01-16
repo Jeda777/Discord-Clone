@@ -42,6 +42,54 @@ const removeServerAction = async ({ serverId }: { serverId: string }) => {
   return server
 }
 
+const leaveServerAction = async ({ serverId, profileId }: { serverId: string; profileId: string }) => {
+  const member = await db.serverMember.findFirst({ where: { profileId, serverId } })
+  if (!member) return false
+  if (member.role == MemberRole.ADMIN) {
+    const server = await db.server.findUnique({ where: { id: serverId }, include: { members: {} } })
+    if (!server?.members || server.members.length == 1) {
+      return removeServerAction({ serverId })
+    }
+    const admins = server.members.filter((m) => m.role == MemberRole.ADMIN)
+    if (admins.length > 1) {
+      const server = await db.server.update({ where: { id: serverId }, data: { members: { deleteMany: { profileId } } } })
+      return server
+    }
+    const moderators = server.members.filter((m) => m.role == MemberRole.MODERATOR)
+    if (moderators.length > 0) {
+      const oldestModerator = await db.server.findUnique({
+        where: { id: serverId },
+        select: { members: { where: { role: MemberRole.MODERATOR }, orderBy: { createdAt: 'asc' } } },
+      })
+      if (!oldestModerator?.members) return false
+      const server = await db.server.update({
+        where: { id: serverId },
+        data: {
+          members: {
+            deleteMany: { profileId },
+            update: { where: { id: oldestModerator.members[0].id }, data: { role: MemberRole.ADMIN } },
+          },
+        },
+      })
+      return server
+    }
+    const guests = await db.server.findUnique({
+      where: { id: serverId },
+      select: { members: { where: { role: MemberRole.GUEST }, orderBy: { createdAt: 'asc' } } },
+    })
+    if (!guests?.members) return false
+    const newServer = await db.server.update({
+      where: { id: serverId },
+      data: {
+        members: { deleteMany: { profileId }, update: { where: { id: guests.members[0].id }, data: { role: MemberRole.ADMIN } } },
+      },
+    })
+    return newServer
+  }
+  const server = await db.server.update({ where: { id: serverId }, data: { members: { deleteMany: { profileId } } } })
+  return server
+}
+
 const createChannelAction = async ({ serverId, name, type }: { serverId: string; name: string; type: string }) => {
   const profile = await currentProfile()
 
@@ -108,6 +156,7 @@ export {
   createServerAction,
   updateServerAction,
   removeServerAction,
+  leaveServerAction,
   createChannelAction,
   changeMemberRoleAction,
   removeServerMemberAction,

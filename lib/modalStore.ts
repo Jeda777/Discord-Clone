@@ -8,7 +8,6 @@ export type modalType =
   | 'createChannel'
   | 'leaveServer'
   | 'deleteServer'
-  | 'deleteChannel'
   | 'editChannel'
   | 'deleteMessage'
   | 'members'
@@ -17,6 +16,8 @@ interface modalData {
   server?: Server
   isModerator?: boolean
   profileId?: string
+  channelId?: string
+  channelName?: string
 }
 
 interface modalStoreInterface {

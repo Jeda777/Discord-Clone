@@ -24,6 +24,7 @@ const ServerSidebar = async ({
             channelId={c.id}
             channelName={c.name}
             channelType={c.type}
+            role={role}
           />
         ))}
       </div>

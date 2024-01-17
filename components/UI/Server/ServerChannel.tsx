@@ -29,7 +29,7 @@ const ServerChannel = ({
     <div className='flex gap-4 items-center group'>
       <Link href={`/server/${serverId}/channel/${channelId}`} className='flex items-center gap-2'>
         <Icon className='md:text-xl text-primary' />
-        {channelName}
+        <p className='overflow-clip w-[100px]'>{channelName}</p>
       </Link>
       {isModerator && <ChannelSettingsButton channelId={channelId} channelName={channelName} />}
     </div>

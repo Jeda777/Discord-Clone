@@ -1,5 +1,6 @@
 'use client'
 
+import { deleteChannelAction, updateChannelAction } from '@/app/actions'
 import { modalStore } from '@/lib/modalStore'
 import { changeChannelFormDataSchema } from '@/lib/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -31,13 +32,13 @@ const EditChannelModal = () => {
 
   if (isModalOpen && channelId && channelName) {
     const onSubmit = async (data: z.infer<typeof changeChannelFormDataSchema>) => {
-      //const newServer = await updateChannelAction({ data, channelId })
+      const newServer = await updateChannelAction({ data, channelId })
       form.reset()
       router.refresh()
       close()
     }
     const onDelete = async () => {
-      //const newServer = await deleteChannelAction({ channelId })
+      const newServer = await deleteChannelAction(channelId)
       form.reset()
       router.refresh()
       close()

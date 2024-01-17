@@ -2,7 +2,7 @@
 
 import { currentProfile } from '@/lib/currentProfile'
 import { db } from '@/lib/db'
-import { createServerFormDataSchema } from '@/lib/schema'
+import { changeChannelFormDataSchema, createServerFormDataSchema } from '@/lib/schema'
 import { ChannelType, MemberRole } from '@prisma/client'
 import { z } from 'zod'
 import { v4 as uuid } from 'uuid'
@@ -108,6 +108,24 @@ const createChannelAction = async ({ serverId, name, type }: { serverId: string;
   return server
 }
 
+const updateChannelAction = async ({
+  data,
+  channelId,
+}: {
+  data: z.infer<typeof changeChannelFormDataSchema>
+  channelId: string
+}) => {
+  const channel = await db.channel.update({ where: { id: channelId }, data: { name: data.name } })
+
+  return channel
+}
+
+const deleteChannelAction = async (channelId: string) => {
+  const channel = await db.channel.delete({ where: { id: channelId } })
+
+  return channel
+}
+
 const changeMemberRoleAction = async ({
   serverId,
   newRole,
@@ -158,6 +176,8 @@ export {
   removeServerAction,
   leaveServerAction,
   createChannelAction,
+  updateChannelAction,
+  deleteChannelAction,
   changeMemberRoleAction,
   removeServerMemberAction,
 }

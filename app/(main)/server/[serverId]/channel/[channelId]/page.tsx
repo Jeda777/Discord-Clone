@@ -28,6 +28,9 @@ const ChannelPage = async ({ params }: { params: { serverId: string; channelId: 
   })
   if (!server) return redirect('/')
 
+  const channel = server.channels.find((c) => c.id === params.channelId)
+  if (!channel) return redirect(`/server/${params.serverId}`)
+
   const role = server.members.find((member) => member.profileId === profile.id)?.role
   if (!role) return redirect('/')
 

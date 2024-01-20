@@ -21,7 +21,6 @@ model Profile {
   servers Server[]
   serverMembers ServerMember[]
   channels Channel[]
-  conversations Conversation[]
   conversationMembers ConversationMember[]
 
   createdAt DateTime @default(now())
@@ -123,18 +122,17 @@ model Conversation {
   type String @default("private")
   inviteCode String @unique
 
-  profileId String
-  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
-
   members ConversationMember[]
   directMessages DirectMessage[]
 
-  @@index([profileId])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([id])
 }
 
 model ConversationMember {
   id String @id @default(uuid())
-  role MemberRole @default(GUEST)
 
   profileId String
   profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)

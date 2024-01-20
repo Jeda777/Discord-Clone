@@ -172,21 +172,29 @@ const removeServerMemberAction = async ({ serverId, memberId }: { serverId: stri
 
 const getConversationAction = async ({ memberId }: { memberId: string }) => {
   const profile = await currentProfile()
-
   const member = await db.serverMember.findUnique({ where: { id: memberId } })
   if (!member) return null
 
-  const conversation = await db.conversation.findMany({
-    where: { AND: [{ members: { some: { profileId: profile.id } } }, { members: { some: { profileId: member.id } } }] },
+  const option1 = `${profile.id}${member.profileId}`
+  const option2 = `${member.profileId}${profile.id}`
+
+  let conversation = await db.conversation.findUnique({
+    where: { id: option1 },
   })
 
-  if (conversation.length == 0) return createConversationAction({ profileId1: profile.id, profileId2: member.id })
-  return conversation[0].id
+  if (!conversation) {
+    conversation = await db.conversation.findUnique({
+      where: { id: option2 },
+    })
+  }
+
+  if (!conversation) return createConversationAction({ profileId1: profile.id, profileId2: member.profileId })
+  return conversation.id
 }
 
 const createConversationAction = async ({ profileId1, profileId2 }: { profileId1: string; profileId2: string }) => {
   const conversation = await db.conversation.create({
-    data: { inviteCode: uuid(), members: { create: [{ profileId: profileId1 }, { profileId: profileId2 }] } },
+    data: { inviteCode: uuid(), id: `${profileId1}${profileId2}` },
   })
 
   return conversation.id

@@ -36,7 +36,7 @@ const ServerHeader = ({
             Server Settings
           </button>
         )}
-        <button className='dropdown-item lg:hidden' onClick={() => open('members', { server, isModerator })}>
+        <button className='dropdown-item lg:hidden' onClick={() => open('members', { server, isModerator, profileId })}>
           Members
         </button>
         {isModerator && (

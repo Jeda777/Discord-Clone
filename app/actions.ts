@@ -179,8 +179,17 @@ const getConversationAction = async ({ memberId }: { memberId: string }) => {
   const conversation = await db.conversation.findMany({
     where: { AND: [{ members: { some: { profileId: profile.id } } }, { members: { some: { profileId: member.id } } }] },
   })
-  if (conversation.length == 0) return createConversationAction()
+
+  if (conversation.length == 0) return createConversationAction({ profileId1: profile.id, profileId2: member.id })
   return conversation[0].id
+}
+
+const createConversationAction = async ({ profileId1, profileId2 }: { profileId1: string; profileId2: string }) => {
+  const conversation = await db.conversation.create({
+    data: { inviteCode: uuid(), members: { create: [{ profileId: profileId1 }, { profileId: profileId2 }] } },
+  })
+
+  return conversation.id
 }
 
 export {

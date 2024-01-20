@@ -3,7 +3,7 @@
 import { currentProfile } from '@/lib/currentProfile'
 import { db } from '@/lib/db'
 import { changeChannelFormDataSchema, createServerFormDataSchema } from '@/lib/schema'
-import { ChannelType, MemberRole } from '@prisma/client'
+import { ChannelType, MemberRole, Prisma } from '@prisma/client'
 import { z } from 'zod'
 import { v4 as uuid } from 'uuid'
 
@@ -170,6 +170,19 @@ const removeServerMemberAction = async ({ serverId, memberId }: { serverId: stri
   return server
 }
 
+const getConversationAction = async ({ memberId }: { memberId: string }) => {
+  const profile = await currentProfile()
+
+  const member = await db.serverMember.findUnique({ where: { id: memberId } })
+  if (!member) return null
+
+  const conversation = await db.conversation.findMany({
+    where: { AND: [{ members: { some: { profileId: profile.id } } }, { members: { some: { profileId: member.id } } }] },
+  })
+  if (conversation.length == 0) return createConversationAction()
+  return conversation[0].id
+}
+
 export {
   createServerAction,
   updateServerAction,
@@ -180,4 +193,5 @@ export {
   deleteChannelAction,
   changeMemberRoleAction,
   removeServerMemberAction,
+  getConversationAction,
 }

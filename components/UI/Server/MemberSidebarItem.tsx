@@ -2,7 +2,7 @@ import { getConversationAction } from '@/app/actions'
 import { modalSecondLayerStore } from '@/lib/modalSecondLayerStore'
 import { MemberRole } from '@prisma/client'
 import Image from 'next/image'
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { IoEllipsisHorizontal } from 'react-icons/io5'
 
 const MemberSidebarItem = ({
@@ -23,11 +23,11 @@ const MemberSidebarItem = ({
   isUser?: boolean
 }) => {
   const { openSecond } = modalSecondLayerStore()
+  const router = useRouter()
 
   const handleConversation = async () => {
     const conversationId = await getConversationAction({ memberId })
-    console.log(conversationId)
-    return redirect(`/conversation/${conversationId}`)
+    return router.push(`/conversation/${conversationId}`)
   }
 
   if (!isUser) {

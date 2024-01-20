@@ -1,6 +1,8 @@
+import { getConversationAction } from '@/app/actions'
 import { modalSecondLayerStore } from '@/lib/modalSecondLayerStore'
 import { MemberRole } from '@prisma/client'
 import Image from 'next/image'
+import { redirect } from 'next/navigation'
 import { IoEllipsisHorizontal } from 'react-icons/io5'
 
 const Member = ({
@@ -22,6 +24,11 @@ const Member = ({
 }) => {
   const { openSecond } = modalSecondLayerStore()
 
+  const handleConversation = async () => {
+    const conversationId = await getConversationAction({ memberId })
+    return redirect(`/conversation/${conversationId}`)
+  }
+
   if (!isUser) {
     return (
       <div className='card dropdown p-2 bg-secondary'>
@@ -34,8 +41,9 @@ const Member = ({
           <IoEllipsisHorizontal className='text-2xl text-primary ml-auto' />
         </button>
         <div className='dropdown-menu dropdown-menu-bottom-left bg-background text-primary'>
-          {/* TODO redirect to private conversation */}
-          <button className='dropdown-item text-sm'>Conversation</button>
+          <button className='dropdown-item text-sm' onClick={handleConversation}>
+            Conversation
+          </button>
           {isModerator && (
             <button
               className='dropdown-item text-sm'

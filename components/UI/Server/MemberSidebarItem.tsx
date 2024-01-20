@@ -1,6 +1,8 @@
+import { getConversationAction } from '@/app/actions'
 import { modalSecondLayerStore } from '@/lib/modalSecondLayerStore'
 import { MemberRole } from '@prisma/client'
 import Image from 'next/image'
+import { redirect } from 'next/navigation'
 import { IoEllipsisHorizontal } from 'react-icons/io5'
 
 const MemberSidebarItem = ({
@@ -22,6 +24,12 @@ const MemberSidebarItem = ({
 }) => {
   const { openSecond } = modalSecondLayerStore()
 
+  const handleConversation = async () => {
+    const conversationId = await getConversationAction({ memberId })
+    console.log(conversationId)
+    return redirect(`/conversation/${conversationId}`)
+  }
+
   if (!isUser) {
     return (
       <div className='dropdown p-2 w-auto dark:hover:bg-white hover:bg-black rounded-xl hover:bg-opacity-20 dark:hover:bg-opacity-20 transition-all'>
@@ -34,8 +42,9 @@ const MemberSidebarItem = ({
           <IoEllipsisHorizontal className='text-2xl text-primary ml-auto' />
         </button>
         <div className='dropdown-menu dropdown-menu-bottom-left bg-secondary text-primary w-auto px-2'>
-          {/* TODO redirect to private conversation */}
-          <button className='dropdown-item text-sm'>Conversation</button>
+          <button className='dropdown-item text-sm' onClick={handleConversation}>
+            Conversation
+          </button>
           {isModerator && (
             <button
               className='dropdown-item text-sm'

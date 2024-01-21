@@ -1,5 +1,4 @@
-import MembersSideBar from '@/components/UI/Server/MembersSideBar'
-import ServerSidebar from '@/components/UI/Server/ServerSidebar'
+import ConversationsSidebar from '@/components/UI/Conversations/ConversationsSidebar'
 import { currentProfile } from '@/lib/currentProfile'
 import { db } from '@/lib/db'
 import { redirect } from 'next/navigation'
@@ -9,7 +8,13 @@ const ConversationPage = async ({ params }: { params: { conversationId: string }
   const conversation = await db.conversation.findUnique({ where: { id: params.conversationId } })
   if (!conversation) return redirect('/')
 
-  return <div className='h-full w-full flex'></div>
+  const allConversations = await db.conversation.findMany({ where: { id: { contains: profile.id } } })
+
+  return (
+    <div className='h-full w-full flex'>
+      {allConversations.length > 0 && <ConversationsSidebar conversations={allConversations} />}
+    </div>
+  )
 }
 
 export default ConversationPage

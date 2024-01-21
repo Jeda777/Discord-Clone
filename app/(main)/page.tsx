@@ -8,7 +8,9 @@ const Home = async () => {
   const allConversations = await db.conversation.findMany({ where: { id: { contains: profile.id } } })
 
   return (
-    <div className='h-full w-full'>{allConversations.length > 0 && <ConversationsSidebar conversations={allConversations} />}</div>
+    <div className='h-full w-full'>
+      {allConversations.length > 0 && <ConversationsSidebar conversations={allConversations} profileId={profile.id} />}
+    </div>
   )
 }
 

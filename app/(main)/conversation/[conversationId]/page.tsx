@@ -12,7 +12,7 @@ const ConversationPage = async ({ params }: { params: { conversationId: string }
 
   return (
     <div className='h-full w-full flex'>
-      {allConversations.length > 0 && <ConversationsSidebar conversations={allConversations} />}
+      {allConversations.length > 0 && <ConversationsSidebar conversations={allConversations} profileId={profile.id} />}
     </div>
   )
 }

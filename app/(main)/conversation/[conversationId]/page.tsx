@@ -1,3 +1,4 @@
+import ChatBox from '@/components/UI/Chat/ChatBox'
 import ConversationsSidebar from '@/components/UI/Conversations/ConversationsSidebar'
 import { currentProfile } from '@/lib/currentProfile'
 import { db } from '@/lib/db'
@@ -13,6 +14,7 @@ const ConversationPage = async ({ params }: { params: { conversationId: string }
   return (
     <div className='h-full w-full flex'>
       {allConversations.length > 0 && <ConversationsSidebar conversations={allConversations} profileId={profile.id} />}
+      <ChatBox />
     </div>
   )
 }

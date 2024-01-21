@@ -1,7 +1,9 @@
+import ChatBox from '@/components/UI/Chat/ChatBox'
 import MembersSideBar from '@/components/UI/Server/MembersSideBar'
 import ServerSidebar from '@/components/UI/Server/ServerSidebar'
 import { currentProfile } from '@/lib/currentProfile'
 import { db } from '@/lib/db'
+import { ChannelType } from '@prisma/client'
 import { redirect } from 'next/navigation'
 
 const ChannelPage = async ({ params }: { params: { serverId: string; channelId: string } }) => {
@@ -37,7 +39,7 @@ const ChannelPage = async ({ params }: { params: { serverId: string; channelId: 
   return (
     <div className='h-full w-full flex'>
       <ServerSidebar server={server} role={role} profileId={profile.id} />
-      <div className='w-full'></div>
+      {channel.type == ChannelType.TEXT && <ChatBox />}
       <MembersSideBar server={server} role={role} profileId={profile.id} />
     </div>
   )

@@ -9,12 +9,14 @@ const ConversationPage = async ({ params }: { params: { conversationId: string }
   const conversation = await db.conversation.findUnique({ where: { id: params.conversationId } })
   if (!conversation) return redirect('/')
 
+  const user = await db.profile.findUniqueOrThrow({ where: { id: conversation.id.replace(profile.id, '') } })
+
   const allConversations = await db.conversation.findMany({ where: { id: { contains: profile.id } } })
 
   return (
     <div className='h-full w-full flex'>
       {allConversations.length > 0 && <ConversationsSidebar conversations={allConversations} profileId={profile.id} />}
-      <ChatBox />
+      <ChatBox type='conversation' name={user.name} userImageUrl={user.imageUrl} />
     </div>
   )
 }

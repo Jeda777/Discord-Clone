@@ -14,4 +14,8 @@ const changeChannelFormDataSchema = z.object({
   name: z.string().min(1),
 })
 
-export { createServerFormDataSchema, createChannelFormDataSchema, changeChannelFormDataSchema }
+const chatInputFormSchema = z.object({
+  content: z.string().min(1),
+})
+
+export { createServerFormDataSchema, createChannelFormDataSchema, changeChannelFormDataSchema, chatInputFormSchema }

@@ -16,7 +16,7 @@ const ConversationPage = async ({ params }: { params: { conversationId: string }
   return (
     <div className='h-full w-full flex'>
       {allConversations.length > 0 && <ConversationsSidebar conversations={allConversations} profileId={profile.id} />}
-      <ChatBox type='conversation' name={user.name} userImageUrl={user.imageUrl} />
+      <ChatBox type='conversation' name={user.name} userImageUrl={user.imageUrl} query={{ conversationId: conversation.id }} />
     </div>
   )
 }

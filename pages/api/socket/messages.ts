@@ -8,7 +8,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseS
 
   const profile = await currentProfilePages(req)
 
-  const { content } = req.body
+  const { content, fileUrl } = req.body
   const { serverId, channelId, conversationId } = req.query
 
   try {
@@ -19,21 +19,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseS
 
     if (typeof serverId === 'string' && typeof channelId === 'string') {
       const server = await db.server.findFirst({
-        where: {
-          id: serverId,
-          members: {
-            some: {
-              profileId: profile.id,
-            },
-          },
-        },
-        include: {
-          members: true,
-        },
+        where: { id: serverId, members: { some: { profileId: profile.id } } },
+        include: { members: true },
       })
-      if (!server) {
-        return res.status(404).json({ error: 'Server not found' })
-      }
+      if (!server) return res.status(404).json({ error: 'Server not found' })
 
       const channel = await db.channel.findFirst({ where: { id: channelId, serverId } })
       if (!channel) return res.status(404).json({ error: 'Channel not found' })
@@ -42,7 +31,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseS
       if (!member) return res.status(404).json({ error: 'Member not found' })
 
       const message = await db.message.create({
-        data: { content, channelId, memberId: member.id },
+        data: { content, channelId, memberId: member.id, fileUrl },
         include: { member: { include: { profile: true } } },
       })
 
@@ -54,6 +43,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseS
     }
 
     if (typeof conversationId === 'string') {
+      const conversation = await db.conversation.findFirst({ where: { id: conversationId } })
+      if (!conversation) return res.status(404).json({ error: 'Conversation not found' })
+
+      const directMessage = await db.directMessage.create({ data: { content, conversationId, profileId: profile.id, fileUrl } })
+
+      const conversationKey = `conversation:${conversationId}:messages`
+
+      res.socket.server.io.emit(conversationKey, directMessage)
+
+      return res.status(200).json(directMessage)
     }
   } catch (error) {
     console.log(error)

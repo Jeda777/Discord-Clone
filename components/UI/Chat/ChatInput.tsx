@@ -22,6 +22,7 @@ const ChatInput = ({ query, type }: { query: Record<string, any>; type: 'channel
     try {
       const url = qs.stringifyUrl({ url: '/api/socket/messages', query })
       await axios.post(url, data)
+      form.reset()
     } catch (error) {
       console.log(error)
     }

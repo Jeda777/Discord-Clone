@@ -40,7 +40,12 @@ const ChannelPage = async ({ params }: { params: { serverId: string; channelId: 
     <div className='h-full w-full flex'>
       <ServerSidebar server={server} role={role} profileId={profile.id} />
       {channel.type == ChannelType.TEXT && (
-        <ChatBox type='channel' name={channel.name} query={{ serverId: server.id, channelId: channel.id }} />
+        <ChatBox
+          type='channel'
+          name={channel.name}
+          query={{ serverId: server.id, channelId: channel.id }}
+          socketKeyValue={channel.id}
+        />
       )}
       <MembersSideBar server={server} role={role} profileId={profile.id} />
     </div>

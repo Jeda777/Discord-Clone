@@ -23,7 +23,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const socket = new (io as any)('http://localhost:3000/', {
-      path: '/api/io',
+      path: '/api/socket/io',
       addTrailingSlash: false,
     })
 

@@ -5,6 +5,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { IoAdd } from 'react-icons/io5'
 import { z } from 'zod'
+import axios from 'axios'
+import qs from 'query-string'
 
 const ChatInput = ({ query, type }: { query: Record<string, any>; type: 'channel' | 'conversation' }) => {
   const form = useForm<z.infer<typeof chatInputFormSchema>>({
@@ -17,8 +19,12 @@ const ChatInput = ({ query, type }: { query: Record<string, any>; type: 'channel
   const isLoading = form.formState.isSubmitting
 
   const onSubmit = async (data: z.infer<typeof chatInputFormSchema>) => {
-    console.log(data.content)
-    form.reset()
+    try {
+      const url = qs.stringifyUrl({ url: '/api/socket/messages', query })
+      await axios.post(url, data)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -32,6 +38,7 @@ const ChatInput = ({ query, type }: { query: Record<string, any>; type: 'channel
           className='input-block focus:outline-none w-full bg-transparent border-none text-primary text-sm'
           placeholder='Send a message...'
           disabled={isLoading}
+          type='text'
         />
       </form>
     </div>

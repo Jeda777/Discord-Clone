@@ -22,6 +22,8 @@ const ConversationPage = async ({ params }: { params: { conversationId: string }
         userImageUrl={user.imageUrl}
         query={{ conversationId: conversation.id }}
         socketKeyValue={conversation.id}
+        profileId={profile.id}
+        isModerator={false}
       />
     </div>
   )

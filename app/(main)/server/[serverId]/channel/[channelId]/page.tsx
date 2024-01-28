@@ -3,7 +3,7 @@ import MembersSideBar from '@/components/UI/Server/MembersSideBar'
 import ServerSidebar from '@/components/UI/Server/ServerSidebar'
 import { currentProfile } from '@/lib/currentProfile'
 import { db } from '@/lib/db'
-import { ChannelType } from '@prisma/client'
+import { ChannelType, MemberRole } from '@prisma/client'
 import { redirect } from 'next/navigation'
 
 const ChannelPage = async ({ params }: { params: { serverId: string; channelId: string } }) => {
@@ -36,6 +36,9 @@ const ChannelPage = async ({ params }: { params: { serverId: string; channelId: 
   const role = server.members.find((member) => member.profileId === profile.id)?.role
   if (!role) return redirect('/')
 
+  const isAdmin = role === MemberRole.ADMIN
+  const isModerator = isAdmin || role === MemberRole.MODERATOR
+
   return (
     <div className='h-full w-full flex'>
       <ServerSidebar server={server} role={role} profileId={profile.id} />
@@ -45,6 +48,8 @@ const ChannelPage = async ({ params }: { params: { serverId: string; channelId: 
           name={channel.name}
           query={{ serverId: server.id, channelId: channel.id }}
           socketKeyValue={channel.id}
+          profileId={profile.id}
+          isModerator={isModerator}
         />
       )}
       <MembersSideBar server={server} role={role} profileId={profile.id} />

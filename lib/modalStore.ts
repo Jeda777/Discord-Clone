@@ -11,6 +11,7 @@ export type modalType =
   | 'editChannel'
   | 'deleteMessage'
   | 'members'
+  | 'messageAttachment'
 
 interface modalData {
   server?: Server
@@ -18,6 +19,7 @@ interface modalData {
   profileId?: string
   channelId?: string
   channelName?: string
+  query?: Record<string, any>
 }
 
 interface modalStoreInterface {

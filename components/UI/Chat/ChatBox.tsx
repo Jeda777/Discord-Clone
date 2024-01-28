@@ -19,7 +19,7 @@ const ChatBox = ({
     <div className='w-full h-full flex flex-col'>
       <ChatHeader name={name} type={type} userImageUrl={userImageUrl} />
       <MessagesBox socketKeyValue={socketKeyValue} type={type} query={query} />
-      <ChatInput query={query} type={type} />
+      <ChatInput query={query} />
     </div>
   )
 }

@@ -7,8 +7,11 @@ import { IoAdd } from 'react-icons/io5'
 import { z } from 'zod'
 import axios from 'axios'
 import qs from 'query-string'
+import { modalStore } from '@/lib/modalStore'
 
-const ChatInput = ({ query, type }: { query: Record<string, any>; type: 'channel' | 'conversation' }) => {
+const ChatInput = ({ query }: { query: Record<string, any> }) => {
+  const { open } = modalStore()
+
   const form = useForm<z.infer<typeof chatInputFormSchema>>({
     defaultValues: {
       content: '',
@@ -31,7 +34,7 @@ const ChatInput = ({ query, type }: { query: Record<string, any>; type: 'channel
   return (
     <div className='w-full p-2'>
       <form onSubmit={form.handleSubmit(onSubmit)} className='w-full flex gap-2 bg-secondary p-2 rounded-3xl items-center'>
-        <button type='button' className='bg-muted rounded-full p-1'>
+        <button type='button' className='bg-muted rounded-full p-1' onClick={() => open('messageAttachment', { query })}>
           <IoAdd className='text-3xl text-primary' />
         </button>
         <input

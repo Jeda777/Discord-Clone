@@ -28,8 +28,6 @@ const MessagesBox = ({
     socketKey: socketKey,
   })
 
-  console.log(data)
-
   return (
     <div className='flex-1 flex flex-col-reverse'>
       {data?.pages.map((group, i) => (

@@ -45,7 +45,7 @@ const CreateServerModal = () => {
               type='text'
             />
             <div>
-              <FileUpload endpoint='serverImage' onChange={form.setValue} value={form.watch().imageUrl} isLoading={isLoading} />
+              <FileUpload onChange={form.setValue} value={form.watch().imageUrl} isLoading={isLoading} />
             </div>
             <button disabled={isLoading} type='submit' className='btn btn-block bg-indigo-500 text-white text-lg font-semibold'>
               Create

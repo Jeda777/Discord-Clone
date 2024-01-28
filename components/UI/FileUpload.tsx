@@ -7,12 +7,10 @@ import Image from 'next/image'
 import { IoClose } from 'react-icons/io5'
 
 const FileUpload = ({
-  endpoint,
   onChange,
   value,
   isLoading,
 }: {
-  endpoint: 'messageFile' | 'serverImage'
   onChange: UseFormSetValue<{ name: string; imageUrl: string }>
   value: string
   isLoading: boolean
@@ -34,7 +32,7 @@ const FileUpload = ({
   } else {
     return (
       <UploadDropzone
-        endpoint={endpoint}
+        endpoint='serverImage'
         onClientUploadComplete={(res) => {
           onChange('imageUrl', res[0].url)
         }}

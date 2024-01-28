@@ -3,7 +3,9 @@
 import { modalStore } from '@/lib/modalStore'
 import { Profile } from '@prisma/client'
 import Image from 'next/image'
+import { useState } from 'react'
 import { IoDocument, IoEllipsisVertical } from 'react-icons/io5'
+import MessageUpdatingInput from './MessageUpdatingInput'
 
 const Message = ({
   id,
@@ -28,6 +30,8 @@ const Message = ({
   isModerator: boolean
   query: Record<string, any>
 }) => {
+  const [updating, setUpdating] = useState(false)
+
   const { open } = modalStore()
 
   const isOwned = profile.id === currentProfileId
@@ -43,15 +47,18 @@ const Message = ({
             {isOwned && <span> (you)</span>}
           </p>
           <p className='text-primary text-xs font-semibold opacity-70 self-end'>{time}</p>
-          {isUpdated && <p className='text-primary text-xs font-semibold opacity-70 self-end'>Updated</p>}
-          {/* TODO Add functionality */}
-          {canDelete && (
+          {isUpdated && !deleted && <p className='text-primary text-xs font-semibold opacity-70 self-end'>Updated</p>}
+          {canDelete && !deleted && !updating && (
             <div className='dropdown h-[14px] flex'>
               <button>
                 <IoEllipsisVertical className='text-sm text-primary font-semibold opacity-70 hover:opacity-100' />
               </button>
               <div className='dropdown-menu dropdown-menu-bottom-left bg-background'>
-                {!fileUrl && <button className='dropdown-item text-sm text-primary'>Change</button>}
+                {!fileUrl && (
+                  <button className='dropdown-item text-sm text-primary' onClick={() => setUpdating(true)}>
+                    Change
+                  </button>
+                )}
                 <button
                   className='dropdown-item text-sm text-primary'
                   onClick={() => open('deleteMessage', { messageId: id, query })}
@@ -65,7 +72,8 @@ const Message = ({
         {!deleted && (
           <div>
             {' '}
-            {!fileUrl && <p className='text-primary'>{content}</p>}
+            {!fileUrl && !updating && <p className='text-primary'>{content}</p>}
+            {!fileUrl && updating && <MessageUpdatingInput content={content} id={id} query={query} setUpdating={setUpdating} />}
             {fileUrl && fileUrl.split('.').pop() === 'pdf' && (
               <a href={fileUrl} target='_blank'>
                 <IoDocument className='text-primary text-8xl' />

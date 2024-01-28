@@ -41,9 +41,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseS
           member.role === MemberRole.ADMIN || member.role === MemberRole.MODERATOR || member.id === existingMessage.memberId
         if (!canDelete) return res.status(401).json({ error: 'Unauthorized' })
 
-        const message = await db.message.update({ where: { id }, data: { deleted: true } })
+        const message = await db.message.update({
+          where: { id },
+          data: { deleted: true },
+          include: { member: { include: { profile: true } } },
+        })
 
-        const channelKey = `channel:${channelId}:messages`
+        const channelKey = `channel:${channelId}:messages:update`
 
         res.socket.server.io.emit(channelKey, message)
 
@@ -60,9 +64,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseS
         const canDelete = existingMessage.profileId === profile.id
         if (!canDelete) return res.status(401).json({ error: 'Unauthorized' })
 
-        const directMessage = await db.directMessage.update({ where: { id }, data: { deleted: true } })
+        const directMessage = await db.directMessage.update({ where: { id }, data: { deleted: true }, include: { profile: true } })
 
-        const conversationKey = `conversation:${conversationId}:messages`
+        const conversationKey = `conversation:${conversationId}:messages:update`
 
         res.socket.server.io.emit(conversationKey, directMessage)
 
@@ -99,9 +103,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseS
         const canChange = member.id === existingMessage.memberId
         if (!canChange) return res.status(401).json({ error: 'Unauthorized' })
 
-        const message = await db.message.update({ where: { id }, data: { content } })
+        const message = await db.message.update({
+          where: { id },
+          data: { content },
+          include: { member: { include: { profile: true } } },
+        })
 
-        const channelKey = `channel:${channelId}:messages`
+        const channelKey = `channel:${channelId}:messages:update`
 
         res.socket.server.io.emit(channelKey, message)
 
@@ -118,9 +126,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseS
         const canChange = existingMessage.profileId === profile.id
         if (!canChange) return res.status(401).json({ error: 'Unauthorized' })
 
-        const directMessage = await db.directMessage.update({ where: { id }, data: { content } })
+        const directMessage = await db.directMessage.update({ where: { id }, data: { content }, include: { profile: true } })
 
-        const conversationKey = `conversation:${conversationId}:messages`
+        const conversationKey = `conversation:${conversationId}:messages:update`
 
         res.socket.server.io.emit(conversationKey, directMessage)
 

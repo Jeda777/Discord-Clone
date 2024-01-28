@@ -5,6 +5,7 @@ import { DirectMessageWithProfile, MessageWithMemberWithProfile } from '@/types'
 import { Fragment } from 'react'
 import moment from 'moment'
 import Message from './Message'
+import useChatSocket from '@/hooks/useChatSocket'
 
 const MessagesBox = ({
   socketKeyValue,
@@ -34,13 +35,14 @@ const MessagesBox = ({
     key: `${type}Id`,
     socketKey: socketKey,
   })
+  useChatSocket({ socketKey, socketUpdateKey: `${socketKey}:update` })
 
   return (
-    <div className='flex-1 flex flex-col-reverse px-4 py-2 gap-4'>
+    <div className='flex-1 flex flex-col-reverse px-4 py-2 gap-4 overflow-scroll hide-scrollbar'>
       {data?.pages.map((group, i) => (
         <Fragment key={i}>
           {type == 'channel' &&
-            group.messages.map((m: MessageWithMemberWithProfile) => (
+            group.items.map((m: MessageWithMemberWithProfile) => (
               <Message
                 key={m.id}
                 id={m.id}
@@ -56,7 +58,7 @@ const MessagesBox = ({
               />
             ))}
           {type == 'conversation' &&
-            group.messages.map((m: DirectMessageWithProfile) => (
+            group.items.map((m: DirectMessageWithProfile) => (
               <Message
                 key={m.id}
                 id={m.id}

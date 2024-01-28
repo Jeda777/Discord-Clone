@@ -42,7 +42,7 @@ export async function GET(req: Request) {
       nextCursor = messages[batch - 1].id
     }
 
-    return NextResponse.json({ messages, nextCursor })
+    return NextResponse.json({ items: messages, nextCursor })
   } catch (error) {
     console.log(error)
     return new NextResponse('Internal Error', { status: 500 })

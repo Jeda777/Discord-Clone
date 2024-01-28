@@ -46,7 +46,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseS
       const conversation = await db.conversation.findFirst({ where: { id: conversationId } })
       if (!conversation) return res.status(404).json({ error: 'Conversation not found' })
 
-      const directMessage = await db.directMessage.create({ data: { content, conversationId, profileId: profile.id, fileUrl } })
+      const directMessage = await db.directMessage.create({
+        data: { content, conversationId, profileId: profile.id, fileUrl },
+        include: { profile: true },
+      })
 
       const conversationKey = `conversation:${conversationId}:messages`
 

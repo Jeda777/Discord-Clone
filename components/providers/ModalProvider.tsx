@@ -3,6 +3,7 @@
 import ChangeRoleModal from '../UI/Modals/ChangeRoleModal'
 import CreateChannelModal from '../UI/Modals/CreateChannelModal'
 import CreateServerModal from '../UI/Modals/CreateServerModal'
+import DeleteMessageModal from '../UI/Modals/DeleteMessageModal'
 import DeleteServerModal from '../UI/Modals/DeleteServerModal'
 import EditChannelModal from '../UI/Modals/EditChannelModal'
 import InviteModal from '../UI/Modals/InviteModal'
@@ -26,6 +27,7 @@ const ModalProvider = () => {
       <LeaveServerModal />
       <EditChannelModal />
       <MessageAttachmentModal />
+      <DeleteMessageModal />
     </div>
   )
 }

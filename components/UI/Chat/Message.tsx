@@ -1,5 +1,6 @@
 'use client'
 
+import { modalStore } from '@/lib/modalStore'
 import { Profile } from '@prisma/client'
 import Image from 'next/image'
 import { IoDocument, IoEllipsisVertical } from 'react-icons/io5'
@@ -14,6 +15,7 @@ const Message = ({
   profile,
   currentProfileId,
   isModerator,
+  query,
 }: {
   id: string
   content: string
@@ -24,7 +26,10 @@ const Message = ({
   profile: Profile
   currentProfileId: string
   isModerator: boolean
+  query: Record<string, any>
 }) => {
+  const { open } = modalStore()
+
   const isOwned = profile.id === currentProfileId
   const canDelete = isOwned || isModerator
 
@@ -46,8 +51,13 @@ const Message = ({
                 <IoEllipsisVertical className='text-sm text-primary font-semibold opacity-70 hover:opacity-100' />
               </button>
               <div className='dropdown-menu dropdown-menu-bottom-left bg-background'>
-                <button className='dropdown-item text-sm text-primary'>Change</button>
-                <button className='dropdown-item text-sm text-primary'>Delete</button>
+                {!fileUrl && <button className='dropdown-item text-sm text-primary'>Change</button>}
+                <button
+                  className='dropdown-item text-sm text-primary'
+                  onClick={() => open('deleteMessage', { messageId: id, query })}
+                >
+                  Delete
+                </button>
               </div>
             </div>
           )}
@@ -66,7 +76,7 @@ const Message = ({
             )}
           </div>
         )}
-        {deleted && <p className='text-primary'>Message deleted</p>}
+        {deleted && <p className='text-primary opacity-70'>Message deleted</p>}
       </div>
     </div>
   )

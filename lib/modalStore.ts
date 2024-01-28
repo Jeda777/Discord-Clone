@@ -20,6 +20,7 @@ interface modalData {
   channelId?: string
   channelName?: string
   query?: Record<string, any>
+  messageId?: string
 }
 
 interface modalStoreInterface {

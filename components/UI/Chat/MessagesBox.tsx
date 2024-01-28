@@ -52,6 +52,7 @@ const MessagesBox = ({
                 profile={m.member.profile}
                 currentProfileId={profileId}
                 isModerator={isModerator}
+                query={query}
               />
             ))}
           {type == 'conversation' &&
@@ -67,6 +68,7 @@ const MessagesBox = ({
                 profile={m.profile}
                 currentProfileId={profileId}
                 isModerator={isModerator}
+                query={query}
               />
             ))}
         </Fragment>

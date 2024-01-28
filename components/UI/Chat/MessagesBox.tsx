@@ -36,7 +36,7 @@ const MessagesBox = ({
   })
 
   return (
-    <div className='flex-1 flex flex-col-reverse'>
+    <div className='flex-1 flex flex-col-reverse px-4 py-2 gap-4'>
       {data?.pages.map((group, i) => (
         <Fragment key={i}>
           {type == 'channel' &&

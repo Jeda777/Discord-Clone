@@ -16,6 +16,7 @@ const socketHandler = (req: NextApiRequest, res: NextApiResponseServerIo) => {
     const io = new ServerIo(httpServer, {
       path: path,
       addTrailingSlash: false,
+      cors: { origin: process.env.NEXT_PUBLIC_SITE_URL!, methods: ['GET', 'POST', 'PATCH'] },
     })
     res.socket.server.io = io
   }

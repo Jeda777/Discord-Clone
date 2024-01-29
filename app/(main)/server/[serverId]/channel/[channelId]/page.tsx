@@ -1,4 +1,5 @@
 import ChatBox from '@/components/UI/Chat/ChatBox'
+import MediaRoom from '@/components/UI/Server/MediaRoom'
 import MembersSideBar from '@/components/UI/Server/MembersSideBar'
 import ServerSidebar from '@/components/UI/Server/ServerSidebar'
 import { currentProfile } from '@/lib/currentProfile'
@@ -42,7 +43,7 @@ const ChannelPage = async ({ params }: { params: { serverId: string; channelId: 
   return (
     <div className='h-full w-full flex'>
       <ServerSidebar server={server} role={role} profileId={profile.id} />
-      {channel.type == ChannelType.TEXT && (
+      {channel.type == ChannelType.TEXT ? (
         <ChatBox
           type='channel'
           name={channel.name}
@@ -51,6 +52,8 @@ const ChannelPage = async ({ params }: { params: { serverId: string; channelId: 
           profileId={profile.id}
           isModerator={isModerator}
         />
+      ) : (
+        <MediaRoom audio={true} video={channel.type === 'VIDEO'} channelId={channel.id} profile={profile} />
       )}
       <MembersSideBar server={server} role={role} profileId={profile.id} />
     </div>

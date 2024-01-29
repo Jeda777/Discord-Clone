@@ -22,13 +22,7 @@ const MessagesBox = ({
 }) => {
   const dateFormat = 'D MMM YYYY HH:mm:ss'
 
-  const socketKey =
-    type == 'channel'
-      ? `channel:${socketKeyValue}:messages`
-      : type == 'conversation'
-      ? `conversation:${socketKeyValue}:messages`
-      : null
-  if (!socketKey) return null
+  const socketKey = `${type}:${socketKeyValue}:messages`
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useChatQuery({
     value: socketKeyValue,

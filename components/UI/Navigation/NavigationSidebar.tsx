@@ -29,7 +29,7 @@ const NavigationSidebar = async () => {
         ))}
       </div>
       <div className='bg-foreground w-8 md:w-10 h-0.5 md:h-[3px] rounded-lg'></div>
-      <div id='sidebar-settings' className='flex flex-col gap-1.5'>
+      <div className='flex flex-col gap-1.5'>
         <ThemeButton />
         <UserButton appearance={{ elements: { avatarBox: 'w-8 h-8 md:w-10 md:h-10' } }} />
       </div>

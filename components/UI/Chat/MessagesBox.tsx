@@ -31,8 +31,16 @@ const MessagesBox = ({
   })
   useChatSocket({ socketKey, socketUpdateKey: `${socketKey}:update` })
 
+  const handleScroll = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
+    const isBottom = e.currentTarget.children[0].getBoundingClientRect().top >= e.currentTarget.scrollHeight
+    if (isBottom && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage()
+    }
+  }
+
   return (
-    <div className='flex-1 flex flex-col-reverse px-4 py-2 gap-4 overflow-scroll hide-scrollbar'>
+    <div onScroll={(e) => handleScroll(e)} className='flex-1 flex flex-col-reverse px-4 py-2 gap-4 overflow-scroll hide-scrollbar'>
+      <div></div>
       {data?.pages.map((group, i) => (
         <Fragment key={i}>
           {type == 'channel' &&

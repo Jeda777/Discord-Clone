@@ -22,7 +22,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   const [connected, setConnected] = useState(false)
 
   useEffect(() => {
-    const socket = new (io as any)('http://localhost:3000/', {
+    const socket = new (io as any)(process.env.NEXT_PUBLIC_SITE_URL!, {
       path: '/api/socket/io',
       addTrailingSlash: false,
     })

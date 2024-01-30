@@ -1,7 +1,13 @@
 import Image from 'next/image'
 import { IoChatboxEllipses } from 'react-icons/io5'
 
-const ChatHeader = ({ type, name, userImageUrl }: { type: 'channel' | 'conversation'; name: string; userImageUrl?: string }) => {
+interface props {
+  type: 'channel' | 'conversation'
+  name: string
+  userImageUrl?: string
+}
+
+const ChatHeader = ({ type, name, userImageUrl }: props) => {
   return (
     <div className='w-full p-3 border-border border-b-2 flex gap-4 items-center'>
       {type == 'conversation' && userImageUrl && (

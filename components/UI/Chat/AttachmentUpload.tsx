@@ -6,15 +6,13 @@ import '@uploadthing/react/styles.css'
 import Image from 'next/image'
 import { IoClose, IoDocument } from 'react-icons/io5'
 
-const AttachmentUpload = ({
-  onChange,
-  value,
-  isLoading,
-}: {
+interface props {
   onChange: UseFormSetValue<{ content: string }>
   value: string
   isLoading: boolean
-}) => {
+}
+
+const AttachmentUpload = ({ onChange, value, isLoading }: props) => {
   const fileType = value?.split('.').pop()
 
   if (value) {

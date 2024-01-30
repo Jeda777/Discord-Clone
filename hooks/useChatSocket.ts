@@ -5,7 +5,12 @@ import { DirectMessageWithProfile, MessageWithMemberWithProfile } from '@/types'
 import { useQueryClient } from '@tanstack/react-query'
 import { useEffect } from 'react'
 
-const useChatSocket = ({ socketKey, socketUpdateKey }: { socketKey: string; socketUpdateKey: string }) => {
+interface props {
+  socketKey: string
+  socketUpdateKey: string
+}
+
+const useChatSocket = ({ socketKey, socketUpdateKey }: props) => {
   const { socket } = useSocket()
   const queryClient = useQueryClient()
 

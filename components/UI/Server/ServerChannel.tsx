@@ -3,19 +3,15 @@ import Link from 'next/link'
 import { IoVideocam, IoVolumeMedium, IoChatboxEllipses } from 'react-icons/io5'
 import ChannelSettingsButton from './ChannelSettingsButton'
 
-const ServerChannel = ({
-  serverId,
-  channelId,
-  channelName,
-  channelType,
-  role,
-}: {
+interface props {
   serverId: string
   channelId: string
   channelName: string
   channelType: ChannelType
   role: MemberRole
-}) => {
+}
+
+const ServerChannel = ({ serverId, channelId, channelName, channelType, role }: props) => {
   const iconMap = {
     [ChannelType.TEXT]: IoChatboxEllipses,
     [ChannelType.AUDIO]: IoVolumeMedium,

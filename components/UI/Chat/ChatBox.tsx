@@ -2,15 +2,7 @@ import ChatHeader from './ChatHeader'
 import ChatInput from './ChatInput'
 import MessagesBox from './MessagesBox'
 
-const ChatBox = ({
-  type,
-  name,
-  userImageUrl,
-  query,
-  socketKeyValue,
-  profileId,
-  isModerator,
-}: {
+interface props {
   type: 'channel' | 'conversation'
   name: string
   userImageUrl?: string
@@ -18,7 +10,9 @@ const ChatBox = ({
   socketKeyValue: string
   profileId: string
   isModerator: boolean
-}) => {
+}
+
+const ChatBox = ({ type, name, userImageUrl, query, socketKeyValue, profileId, isModerator }: props) => {
   return (
     <div className='w-full h-full flex flex-col'>
       <ChatHeader name={name} type={type} userImageUrl={userImageUrl} />

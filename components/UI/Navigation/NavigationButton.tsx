@@ -3,7 +3,13 @@
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
-const NavigationButton = ({ imageSrc, name, id }: { imageSrc: string; name: string; id: string }) => {
+interface props {
+  imageSrc: string
+  name: string
+  id: string
+}
+
+const NavigationButton = ({ imageSrc, name, id }: props) => {
   const router = useRouter()
   return (
     <span

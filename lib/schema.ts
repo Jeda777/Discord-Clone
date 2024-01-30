@@ -1,21 +1,19 @@
 import { z } from 'zod'
 
-const createServerFormDataSchema = z.object({
+export const createServerFormDataSchema = z.object({
   name: z.string().min(1),
   imageUrl: z.string().min(1),
 })
 
-const createChannelFormDataSchema = z.object({
+export const createChannelFormDataSchema = z.object({
   name: z.string().min(1),
   type: z.string().min(1),
 })
 
-const changeChannelFormDataSchema = z.object({
+export const changeChannelFormDataSchema = z.object({
   name: z.string().min(1),
 })
 
-const chatInputFormSchema = z.object({
+export const chatInputFormSchema = z.object({
   content: z.string().min(1),
 })
-
-export { createServerFormDataSchema, createChannelFormDataSchema, changeChannelFormDataSchema, chatInputFormSchema }

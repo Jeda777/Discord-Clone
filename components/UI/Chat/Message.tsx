@@ -7,18 +7,7 @@ import { useState } from 'react'
 import { IoDocument, IoEllipsisVertical } from 'react-icons/io5'
 import MessageUpdatingInput from './MessageUpdatingInput'
 
-const Message = ({
-  id,
-  content,
-  fileUrl,
-  time,
-  deleted,
-  isUpdated,
-  profile,
-  currentProfileId,
-  isModerator,
-  query,
-}: {
+interface props {
   id: string
   content: string
   fileUrl: string | null
@@ -29,7 +18,9 @@ const Message = ({
   currentProfileId: string
   isModerator: boolean
   query: Record<string, any>
-}) => {
+}
+
+const Message = ({ id, content, fileUrl, time, deleted, isUpdated, profile, currentProfileId, isModerator, query }: props) => {
   const [updating, setUpdating] = useState(false)
 
   const { open } = modalStore()

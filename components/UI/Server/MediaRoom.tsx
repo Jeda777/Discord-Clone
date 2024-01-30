@@ -14,17 +14,14 @@ import {
 import { Track } from 'livekit-client'
 import { Profile } from '@prisma/client'
 
-const MediaRoom = ({
-  channelId,
-  profile,
-  audio,
-  video,
-}: {
+interface props {
   channelId: string
   profile: Profile
   audio: boolean
   video: boolean
-}) => {
+}
+
+const MediaRoom = ({ channelId, profile, audio, video }: props) => {
   const [token, setToken] = useState('')
 
   useEffect(() => {

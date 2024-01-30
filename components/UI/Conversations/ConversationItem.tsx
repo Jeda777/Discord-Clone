@@ -2,7 +2,12 @@ import { db } from '@/lib/db'
 import Image from 'next/image'
 import Link from 'next/link'
 
-const ConversationItem = async ({ conversationId, userId }: { conversationId: string; userId: string }) => {
+interface props {
+  conversationId: string
+  userId: string
+}
+
+const ConversationItem = async ({ conversationId, userId }: props) => {
   const user = await db.profile.findUnique({ where: { id: userId } })
 
   if (user) {

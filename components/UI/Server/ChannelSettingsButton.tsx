@@ -3,7 +3,12 @@
 import { modalStore } from '@/lib/modalStore'
 import { IoSettingsOutline } from 'react-icons/io5'
 
-const ChannelSettingsButton = ({ channelId, channelName }: { channelId: string; channelName: string }) => {
+interface props {
+  channelId: string
+  channelName: string
+}
+
+const ChannelSettingsButton = ({ channelId, channelName }: props) => {
   const { open } = modalStore()
 
   return (

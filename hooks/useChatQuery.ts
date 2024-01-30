@@ -1,7 +1,13 @@
 import qs from 'query-string'
 import { useInfiniteQuery } from '@tanstack/react-query'
 
-const useChatQuery = ({ key, value, socketKey }: { key: string; value: string; socketKey: string }) => {
+interface props {
+  key: string
+  value: string
+  socketKey: string
+}
+
+const useChatQuery = ({ key, value, socketKey }: props) => {
   const fetchMessages = async ({ pageParam = undefined }) => {
     const baseUrlMap = new Map([
       ['channelId', '/api/messages'],

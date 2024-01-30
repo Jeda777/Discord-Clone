@@ -5,15 +5,13 @@ import { ServerWithMembersWithProfiles } from '@/types'
 import { MemberRole } from '@prisma/client'
 import { IoChevronDown } from 'react-icons/io5'
 
-const ServerHeader = ({
-  server,
-  role,
-  profileId,
-}: {
+interface props {
   server: ServerWithMembersWithProfiles
   role: MemberRole
   profileId: string
-}) => {
+}
+
+const ServerHeader = ({ server, role, profileId }: props) => {
   const isAdmin = role === MemberRole.ADMIN
   const isModerator = isAdmin || role === MemberRole.MODERATOR
 

@@ -9,17 +9,14 @@ import axios from 'axios'
 import { Dispatch, SetStateAction } from 'react'
 import { IoCheckmark, IoClose } from 'react-icons/io5'
 
-const MessageUpdatingInput = ({
-  id,
-  content,
-  query,
-  setUpdating,
-}: {
+interface props {
   id: string
   content: string
   query: Record<string, any>
   setUpdating: Dispatch<SetStateAction<boolean>>
-}) => {
+}
+
+const MessageUpdatingInput = ({ id, content, query, setUpdating }: props) => {
   const form = useForm<z.infer<typeof chatInputFormSchema>>({
     defaultValues: {
       content: content,

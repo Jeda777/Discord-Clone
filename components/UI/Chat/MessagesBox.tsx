@@ -7,24 +7,20 @@ import moment from 'moment'
 import Message from './Message'
 import useChatSocket from '@/hooks/useChatSocket'
 
-const MessagesBox = ({
-  socketKeyValue,
-  type,
-  query,
-  profileId,
-  isModerator,
-}: {
+interface props {
   socketKeyValue: string
   type: 'channel' | 'conversation'
   query: Record<string, any>
   profileId: string
   isModerator: boolean
-}) => {
+}
+
+const MessagesBox = ({ socketKeyValue, type, query, profileId, isModerator }: props) => {
   const dateFormat = 'D MMM YYYY HH:mm:ss'
 
   const socketKey = `${type}:${socketKeyValue}:messages`
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useChatQuery({
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useChatQuery({
     value: socketKeyValue,
     key: `${type}Id`,
     socketKey: socketKey,

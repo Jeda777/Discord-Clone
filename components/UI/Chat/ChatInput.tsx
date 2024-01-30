@@ -9,7 +9,11 @@ import axios from 'axios'
 import qs from 'query-string'
 import { modalStore } from '@/lib/modalStore'
 
-const ChatInput = ({ query }: { query: Record<string, any> }) => {
+interface props {
+  query: Record<string, any>
+}
+
+const ChatInput = ({ query }: props) => {
   const { open } = modalStore()
 
   const form = useForm<z.infer<typeof chatInputFormSchema>>({

@@ -6,15 +6,13 @@ import '@uploadthing/react/styles.css'
 import Image from 'next/image'
 import { IoClose } from 'react-icons/io5'
 
-const FileUpload = ({
-  onChange,
-  value,
-  isLoading,
-}: {
+interface props {
   onChange: UseFormSetValue<{ name: string; imageUrl: string }>
   value: string
   isLoading: boolean
-}) => {
+}
+
+const FileUpload = ({ onChange, value, isLoading }: props) => {
   if (value) {
     return (
       <div className='relative w-32 h-32'>

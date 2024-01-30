@@ -3,15 +3,13 @@ import ServerChannel from './ServerChannel'
 import { ServerWithChannelsWithMembersWithProfiles } from '@/types'
 import { MemberRole } from '@prisma/client'
 
-const ServerSidebar = async ({
-  server,
-  role,
-  profileId,
-}: {
+interface props {
   server: ServerWithChannelsWithMembersWithProfiles
   role: MemberRole
   profileId: string
-}) => {
+}
+
+const ServerSidebar = async ({ server, role, profileId }: props) => {
   return (
     <div className='h-full bg-secondary text-primary flex flex-col w-44 items-end p-2 gap-2'>
       <ServerHeader server={server} role={role} profileId={profileId} />

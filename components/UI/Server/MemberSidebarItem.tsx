@@ -5,15 +5,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { IoEllipsisHorizontal } from 'react-icons/io5'
 
-const MemberSidebarItem = ({
-  serverId,
-  isModerator,
-  memberId,
-  role,
-  name,
-  imageUrl,
-  isUser,
-}: {
+interface props {
   serverId: string
   isModerator: boolean
   memberId: string
@@ -21,7 +13,9 @@ const MemberSidebarItem = ({
   name: string
   imageUrl: string
   isUser?: boolean
-}) => {
+}
+
+const MemberSidebarItem = ({ serverId, isModerator, memberId, role, name, imageUrl, isUser }: props) => {
   const { openSecond } = modalSecondLayerStore()
   const router = useRouter()
 

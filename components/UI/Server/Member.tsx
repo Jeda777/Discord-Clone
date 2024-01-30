@@ -6,15 +6,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { IoEllipsisHorizontal } from 'react-icons/io5'
 
-const Member = ({
-  serverId,
-  isModerator,
-  memberId,
-  role,
-  name,
-  imageUrl,
-  isUser,
-}: {
+interface props {
   serverId: string
   isModerator: boolean
   memberId: string
@@ -22,7 +14,9 @@ const Member = ({
   name: string
   imageUrl: string
   isUser?: boolean
-}) => {
+}
+
+const Member = ({ serverId, isModerator, memberId, role, name, imageUrl, isUser }: props) => {
   const { close } = modalStore()
   const { openSecond } = modalSecondLayerStore()
   const router = useRouter()

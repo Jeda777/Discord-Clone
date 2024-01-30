@@ -4,15 +4,13 @@ import { ServerWithMembersWithProfiles } from '@/types'
 import MemberSidebarItem from './MemberSidebarItem'
 import { MemberRole } from '@prisma/client'
 
-const MembersSideBar = ({
-  server,
-  role,
-  profileId,
-}: {
+interface props {
   server: ServerWithMembersWithProfiles
   role: MemberRole
   profileId: string
-}) => {
+}
+
+const MembersSideBar = ({ server, role, profileId }: props) => {
   const user = server.members.filter((m) => m.profileId == profileId)
 
   const membersWithoutUser = server.members.filter((m) => m.profileId != profileId)

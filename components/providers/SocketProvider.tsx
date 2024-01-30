@@ -3,6 +3,10 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { io } from 'socket.io-client'
 
+interface props {
+  children: React.ReactNode
+}
+
 type socketContextType = {
   socket: any | null
   connected: boolean
@@ -17,7 +21,7 @@ export const useSocket = () => {
   return useContext(socketContext)
 }
 
-export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
+export const SocketProvider = ({ children }: props) => {
   const [socket, setSocket] = useState(null)
   const [connected, setConnected] = useState(false)
 

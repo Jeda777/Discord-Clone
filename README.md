@@ -1,36 +1,134 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<br/>
+<p align="center">
+  <h1 align="center">Discord Clone</h3>
 
-## Getting Started
+  <p align="center">
+    This project is Discord clone with main features of Discord.
+    <br/>
+    <br/>
+    <a href="https://discord-clone-production-5538.up.railway.app/">View Demo</a>
+    .
+    <a href="https://github.com/Jeda777/Discord-Clone/issues">Report Bug</a>
+    .
+  </p>
+</p>
 
-First, run the development server:
+## :notebook_with_decorative_cover: Table Of Contents
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- [About the Project](#about-the-project)
+  - [Screenshots](#screenshots)
+  - [Demo Accounts](#demo-accounts)
+  - [Features](#features)
+  - [Built With](#built-with)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Clone The Repository](#clone-the-repository)
+  - [Environment Variables](#environment-variables)
+  - [Install NPM Packages](#install-npm-packages)
+  - [Setup Prisma](#setup-prisma)
+  - [Run The App](#run-the-app)
+  - [Deployment](#deployment)
+
+## About The Project
+
+### :camera: Screenshots
+
+![DiscordClone1](https://github.com/Jeda777/Discord-Clone/assets/66244271/c38c668b-53f2-4872-91aa-fa4b12bf13a9)
+![DiscordClone2](https://github.com/Jeda777/Discord-Clone/assets/66244271/f2ae57e1-97b0-42f1-a507-a8abc2ffaf3e)
+![DiscordClone3](https://github.com/Jeda777/Discord-Clone/assets/66244271/8314e0b7-a3b2-4706-84c0-e538881b3609)
+
+### Demo Accounts
+
+| Username | E-mail             | Password |
+| -------- | ------------------ | -------- |
+| Demo 1   | egm13063@omeie.com | 123      |
+| Demo 2   | naf50208@zbock.com | 123      |
+
+### Features
+
+- Authentication
+- Light / Dark mode
+- Responsive Desktop UI (working on mobile UI)
+- Real-time messaging with deleting and editing
+- Sending attachments
+- Private conversations
+- Servers
+  - Member management (invite, kick, change role, leave)
+  - Creating, editing and deleting servers
+  - Creating, editing and deleting channels
+  - Text, audio and video channel
+
+### Built With
+
+- Typescript
+- Next.js
+- Prisma
+- Tailwind CSS
+- Clerk
+- LiveKit
+- SocketIO
+- UploadThing
+- MySQL database on AWS
+
+## :toolbox: Getting Started
+
+### Prerequisites
+
+- Node
+
+### Clone The Repository
+
+```sh
+git clone https://github.com/Jeda777/Discord-Clone.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Environment Variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```js
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+CLERK_SECRET_KEY
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
+DATABASE_URL=
+UPLOADTHING_SECRET=
+UPLOADTHING_APP_ID=
+LIVEKIT_API_KEY=
+LIVEKIT_API_SECRET=
+NEXT_PUBLIC_LIVEKIT_URL=
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Install NPM packages
 
-## Learn More
+```sh
+npm i
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Setup Prisma
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```sh
+npm run prisma1
+npm run prisma2
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+or
 
-## Deploy on Vercel
+```sh
+npx prisma generate
+npx prisma db push
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Run The App
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```sh
+npm run dev
+```
+
+### Deployment
+
+On builds you need to add one more environment variable. In 'YOUR_SITE_URL' place url of your deployed site.
+
+```
+NEXT_PUBLIC_SITE_URL=YOUR_SITE_URL
+```

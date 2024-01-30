@@ -28,7 +28,7 @@ const Member = ({
   const router = useRouter()
 
   const handleConversation = async () => {
-    const conversationId = await getConversationAction({ memberId })
+    const conversationId = await getConversationAction(memberId)
     close()
     return router.push(`/conversation/${conversationId}`)
   }

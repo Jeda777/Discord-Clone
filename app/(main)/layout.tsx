@@ -1,6 +1,10 @@
 import NavigationSidebar from '@/components/UI/Navigation/NavigationSidebar'
 
-const MainLayout = async ({ children }: { children: React.ReactNode }) => {
+interface props {
+  children: React.ReactNode
+}
+
+const MainLayout = async ({ children }: props) => {
   return (
     <div className='h-full flex'>
       <NavigationSidebar />

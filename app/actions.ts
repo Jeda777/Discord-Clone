@@ -3,11 +3,11 @@
 import { currentProfile } from '@/lib/currentProfile'
 import { db } from '@/lib/db'
 import { changeChannelFormDataSchema, createServerFormDataSchema } from '@/lib/schema'
-import { ChannelType, MemberRole, Prisma } from '@prisma/client'
+import { ChannelType, MemberRole } from '@prisma/client'
 import { z } from 'zod'
 import { v4 as uuid } from 'uuid'
 
-const createServerAction = async (data: z.infer<typeof createServerFormDataSchema>) => {
+export const createServerAction = async (data: z.infer<typeof createServerFormDataSchema>) => {
   const profile = await currentProfile()
   const { name, imageUrl } = data
 
@@ -17,7 +17,7 @@ const createServerAction = async (data: z.infer<typeof createServerFormDataSchem
       imageUrl: imageUrl,
       profileId: profile.id,
       inviteCode: uuid(),
-      channels: { create: { name: 'General', profileId: profile.id } },
+      channels: { create: { name: 'General' } },
       members: { create: { profileId: profile.id, role: MemberRole.ADMIN } },
     },
   })
@@ -25,7 +25,13 @@ const createServerAction = async (data: z.infer<typeof createServerFormDataSchem
   return server.id
 }
 
-const updateServerAction = async ({ data, serverId }: { data: z.infer<typeof createServerFormDataSchema>; serverId: string }) => {
+export const updateServerAction = async ({
+  data,
+  serverId,
+}: {
+  data: z.infer<typeof createServerFormDataSchema>
+  serverId: string
+}) => {
   const { name, imageUrl } = data
 
   const server = await db.server.update({
@@ -36,19 +42,19 @@ const updateServerAction = async ({ data, serverId }: { data: z.infer<typeof cre
   return server
 }
 
-const removeServerAction = async ({ serverId }: { serverId: string }) => {
+export const removeServerAction = async (serverId: string) => {
   const server = await db.server.delete({ where: { id: serverId } })
 
   return server
 }
 
-const leaveServerAction = async ({ serverId, profileId }: { serverId: string; profileId: string }) => {
+export const leaveServerAction = async ({ serverId, profileId }: { serverId: string; profileId: string }) => {
   const member = await db.serverMember.findFirst({ where: { profileId, serverId } })
-  if (!member) return false
+  if (!member) return
   if (member.role == MemberRole.ADMIN) {
     const server = await db.server.findUnique({ where: { id: serverId }, include: { members: {} } })
     if (!server?.members || server.members.length == 1) {
-      return removeServerAction({ serverId })
+      return removeServerAction(serverId)
     }
     const admins = server.members.filter((m) => m.role == MemberRole.ADMIN)
     if (admins.length > 1) {
@@ -61,10 +67,11 @@ const leaveServerAction = async ({ serverId, profileId }: { serverId: string; pr
         where: { id: serverId },
         select: { members: { where: { role: MemberRole.MODERATOR }, orderBy: { createdAt: 'asc' } } },
       })
-      if (!oldestModerator?.members) return false
+      if (!oldestModerator?.members) return
       const server = await db.server.update({
         where: { id: serverId },
         data: {
+          profileId: oldestModerator.members[0].id,
           members: {
             deleteMany: { profileId },
             update: { where: { id: oldestModerator.members[0].id }, data: { role: MemberRole.ADMIN } },
@@ -77,10 +84,11 @@ const leaveServerAction = async ({ serverId, profileId }: { serverId: string; pr
       where: { id: serverId },
       select: { members: { where: { role: MemberRole.GUEST }, orderBy: { createdAt: 'asc' } } },
     })
-    if (!guests?.members) return false
+    if (!guests?.members) return
     const newServer = await db.server.update({
       where: { id: serverId },
       data: {
+        profileId: guests.members[0].id,
         members: { deleteMany: { profileId }, update: { where: { id: guests.members[0].id }, data: { role: MemberRole.ADMIN } } },
       },
     })
@@ -90,9 +98,7 @@ const leaveServerAction = async ({ serverId, profileId }: { serverId: string; pr
   return server
 }
 
-const createChannelAction = async ({ serverId, name, type }: { serverId: string; name: string; type: string }) => {
-  const profile = await currentProfile()
-
+export const createChannelAction = async ({ serverId, name, type }: { serverId: string; name: string; type: string }) => {
   const typeMap = new Map([
     ['0', ChannelType.TEXT],
     ['1', ChannelType.AUDIO],
@@ -103,12 +109,12 @@ const createChannelAction = async ({ serverId, name, type }: { serverId: string;
 
   const server = await db.server.update({
     where: { id: serverId },
-    data: { channels: { create: { profileId: profile.id, name, type: getType } } },
+    data: { channels: { create: { name, type: getType } } },
   })
   return server
 }
 
-const updateChannelAction = async ({
+export const updateChannelAction = async ({
   data,
   channelId,
 }: {
@@ -120,13 +126,13 @@ const updateChannelAction = async ({
   return channel
 }
 
-const deleteChannelAction = async (channelId: string) => {
+export const deleteChannelAction = async (channelId: string) => {
   const channel = await db.channel.delete({ where: { id: channelId } })
 
   return channel
 }
 
-const changeMemberRoleAction = async ({
+export const changeMemberRoleAction = async ({
   serverId,
   newRole,
   memberId,
@@ -152,7 +158,7 @@ const changeMemberRoleAction = async ({
   return server
 }
 
-const removeServerMemberAction = async ({ serverId, memberId }: { serverId: string; memberId: string }) => {
+export const removeServerMemberAction = async ({ serverId, memberId }: { serverId: string; memberId: string }) => {
   const server = await db.server.update({
     where: { id: serverId },
     data: { members: { delete: { id: memberId } } },
@@ -170,7 +176,7 @@ const removeServerMemberAction = async ({ serverId, memberId }: { serverId: stri
   return server
 }
 
-const getConversationAction = async ({ memberId }: { memberId: string }) => {
+export const getConversationAction = async (memberId: string) => {
   const profile = await currentProfile()
   const member = await db.serverMember.findUnique({ where: { id: memberId } })
   if (!member) return null
@@ -192,23 +198,10 @@ const getConversationAction = async ({ memberId }: { memberId: string }) => {
   return conversation.id
 }
 
-const createConversationAction = async ({ profileId1, profileId2 }: { profileId1: string; profileId2: string }) => {
+export const createConversationAction = async ({ profileId1, profileId2 }: { profileId1: string; profileId2: string }) => {
   const conversation = await db.conversation.create({
     data: { inviteCode: uuid(), id: `${profileId1}${profileId2}` },
   })
 
   return conversation.id
-}
-
-export {
-  createServerAction,
-  updateServerAction,
-  removeServerAction,
-  leaveServerAction,
-  createChannelAction,
-  updateChannelAction,
-  deleteChannelAction,
-  changeMemberRoleAction,
-  removeServerMemberAction,
-  getConversationAction,
 }

@@ -7,7 +7,11 @@ import { db } from '@/lib/db'
 import { ChannelType, MemberRole } from '@prisma/client'
 import { redirect } from 'next/navigation'
 
-const ChannelPage = async ({ params }: { params: { serverId: string; channelId: string } }) => {
+interface props {
+  params: { serverId: string; channelId: string }
+}
+
+const ChannelPage = async ({ params }: props) => {
   const profile = await currentProfile()
   const server = await db.server.findUnique({
     where: {

@@ -2,7 +2,11 @@ import { currentProfile } from '@/lib/currentProfile'
 import { db } from '@/lib/db'
 import { redirect } from 'next/navigation'
 
-const page = async ({ params }: { params: { inviteCode: string } }) => {
+interface props {
+  params: { inviteCode: string }
+}
+
+const page = async ({ params }: props) => {
   if (!params.inviteCode) return redirect('/')
   const profile = await currentProfile()
 
@@ -17,7 +21,7 @@ const page = async ({ params }: { params: { inviteCode: string } }) => {
   })
   if (server) return redirect(`/server/${server.id}`)
 
-  return null
+  return redirect('/')
 }
 
 export default page

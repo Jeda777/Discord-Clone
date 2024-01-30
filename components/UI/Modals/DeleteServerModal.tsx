@@ -12,7 +12,7 @@ const DeleteServerModal = () => {
 
   if (isModalOpen && server) {
     const handleSubmit = async () => {
-      const newServer = await removeServerAction({ serverId: server.id })
+      const newServer = await removeServerAction(server.id)
       router.push('/')
       router.refresh()
       close()

@@ -4,7 +4,11 @@ import { currentProfile } from '@/lib/currentProfile'
 import { db } from '@/lib/db'
 import { redirect } from 'next/navigation'
 
-const ServerPage = async ({ params }: { params: { serverId: string } }) => {
+interface props {
+  params: { serverId: string }
+}
+
+const ServerPage = async ({ params }: props) => {
   const profile = await currentProfile()
   const server = await db.server.findUnique({
     where: {

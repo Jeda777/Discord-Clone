@@ -4,12 +4,17 @@ import { currentProfile } from '@/lib/currentProfile'
 import { db } from '@/lib/db'
 import { redirect } from 'next/navigation'
 
-const ConversationPage = async ({ params }: { params: { conversationId: string } }) => {
+interface props {
+  params: { conversationId: string }
+}
+
+const ConversationPage = async ({ params }: props) => {
   const profile = await currentProfile()
   const conversation = await db.conversation.findUnique({ where: { id: params.conversationId } })
   if (!conversation) return redirect('/')
 
-  const user = await db.profile.findUniqueOrThrow({ where: { id: conversation.id.replace(profile.id, '') } })
+  const user = await db.profile.findUnique({ where: { id: conversation.id.replace(profile.id, '') } })
+  if (!user) return redirect('/')
 
   const allConversations = await db.conversation.findMany({ where: { id: { contains: profile.id } } })
 

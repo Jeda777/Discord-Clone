@@ -26,7 +26,7 @@ const MemberSidebarItem = ({
   const router = useRouter()
 
   const handleConversation = async () => {
-    const conversationId = await getConversationAction({ memberId })
+    const conversationId = await getConversationAction(memberId)
     return router.push(`/conversation/${conversationId}`)
   }
 

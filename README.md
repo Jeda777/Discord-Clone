@@ -68,7 +68,7 @@
 - LiveKit
 - SocketIO
 - UploadThing
-- MySQL database\
+- MySQL database
 
 ## :toolbox: Getting Started
 

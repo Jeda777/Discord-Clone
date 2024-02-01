@@ -48,7 +48,7 @@
 
 - Authentication
 - Light / Dark mode
-- Responsive Desktop UI (working on mobile UI)
+- UI for PC (mobile UI in progress)
 - Real-time messaging with deleting and editing
 - Sending attachments
 - Private conversations
@@ -68,7 +68,7 @@
 - LiveKit
 - SocketIO
 - UploadThing
-- MySQL database on AWS
+- MySQL database\
 
 ## :toolbox: Getting Started
 

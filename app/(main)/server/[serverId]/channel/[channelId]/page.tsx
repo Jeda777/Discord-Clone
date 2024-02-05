@@ -47,8 +47,11 @@ const ChannelPage = async ({ params }: props) => {
 
   return (
     <div className='h-full w-full flex'>
-      <NavigationSidebar />
-      <ServerSidebar server={server} role={role} profileId={profile.id} />
+      <div className='h-full w-full hidden md:flex'>
+        <NavigationSidebar />
+        <ServerSidebar server={server} role={role} profileId={profile.id} />
+      </div>
+
       {channel.type == ChannelType.TEXT ? (
         <ChatBox
           type='channel'

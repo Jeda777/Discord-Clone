@@ -21,8 +21,10 @@ const ConversationPage = async ({ params }: props) => {
 
   return (
     <div className='h-full w-full flex'>
-      <NavigationSidebar />
-      {allConversations.length > 0 && <ConversationsSidebar conversations={allConversations} profileId={profile.id} />}
+      <div className='h-full w-full hidden md:flex'>
+        <NavigationSidebar />
+        {allConversations.length > 0 && <ConversationsSidebar conversations={allConversations} profileId={profile.id} />}
+      </div>
       <ChatBox
         type='conversation'
         name={user.name}

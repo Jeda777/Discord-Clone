@@ -38,8 +38,11 @@ const ServerPage = async ({ params }: props) => {
 
   return (
     <div className='h-full w-full flex'>
-      <NavigationSidebar />
-      <ServerSidebar server={server} role={role} profileId={profile.id} />
+      <div className='h-full w-full flex'>
+        <NavigationSidebar />
+        <ServerSidebar server={server} role={role} profileId={profile.id} />
+      </div>
+
       <div className='w-full'></div>
       <MembersSideBar server={server} role={role} profileId={profile.id} />
     </div>

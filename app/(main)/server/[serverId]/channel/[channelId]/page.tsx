@@ -1,4 +1,5 @@
 import ChatBox from '@/components/UI/Chat/ChatBox'
+import NavigationSidebar from '@/components/UI/Navigation/NavigationSidebar'
 import MediaRoom from '@/components/UI/Server/MediaRoom'
 import MembersSideBar from '@/components/UI/Server/MembersSideBar'
 import ServerSidebar from '@/components/UI/Server/ServerSidebar'
@@ -46,6 +47,7 @@ const ChannelPage = async ({ params }: props) => {
 
   return (
     <div className='h-full w-full flex'>
+      <NavigationSidebar />
       <ServerSidebar server={server} role={role} profileId={profile.id} />
       {channel.type == ChannelType.TEXT ? (
         <ChatBox

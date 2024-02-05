@@ -1,5 +1,6 @@
 import ChatBox from '@/components/UI/Chat/ChatBox'
 import ConversationsSidebar from '@/components/UI/Conversations/ConversationsSidebar'
+import NavigationSidebar from '@/components/UI/Navigation/NavigationSidebar'
 import { currentProfile } from '@/lib/currentProfile'
 import { db } from '@/lib/db'
 import { redirect } from 'next/navigation'
@@ -20,6 +21,7 @@ const ConversationPage = async ({ params }: props) => {
 
   return (
     <div className='h-full w-full flex'>
+      <NavigationSidebar />
       {allConversations.length > 0 && <ConversationsSidebar conversations={allConversations} profileId={profile.id} />}
       <ChatBox
         type='conversation'

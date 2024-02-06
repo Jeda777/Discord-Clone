@@ -7,7 +7,7 @@ const CreateServerButton = () => {
   const { open } = modalStore()
   return (
     <span
-      className={`tooltip static tooltip-right tooltip-position rounded-full transition-all duration-200 w-8 h-8 md:w-10 md:h-10`}
+      className={`tooltip static tooltip-right tooltip-position rounded-full transition-all duration-200 w-10 h-10`}
       data-tooltip='Create Server'
       onPointerEnter={(e) => {
         const elementPosition = e.currentTarget.getBoundingClientRect()
@@ -17,8 +17,8 @@ const CreateServerButton = () => {
         e.currentTarget.style.setProperty('--left', `${leftPosition}px`)
       }}
     >
-      <button className='btn btn-circle bg-secondary w-8 h-8 md:w-10 md:h-10' onClick={() => open('createServer')}>
-        <IoAdd className='text-2xl md:text-4xl text-primary' />
+      <button className='btn btn-circle bg-secondary w-10 h-10' onClick={() => open('createServer')}>
+        <IoAdd className='text-4xl text-primary' />
       </button>
     </span>
   )

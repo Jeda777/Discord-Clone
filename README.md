@@ -34,9 +34,9 @@
 ### :camera: Screenshots
 
 <p float="left">
-  <img src="https://github.com/Jeda777/Discord-Clone/assets/66244271/26e91beb-581f-4263-88c9-3ad75e5fbd21" width="33%" />
-  <img src="https://github.com/Jeda777/Discord-Clone/assets/66244271/c3c6ba61-9799-4c29-9d48-31e1bdceec96" width="33%" />   
-  <img src="https://github.com/Jeda777/Discord-Clone/assets/66244271/855ca4bf-8d4b-4682-a6f8-25498cca7c18" width="33%" />
+  <img src="https://github.com/Jeda777/Discord-Clone/assets/66244271/26e91beb-581f-4263-88c9-3ad75e5fbd21" width="32%" />
+  <img src="https://github.com/Jeda777/Discord-Clone/assets/66244271/c3c6ba61-9799-4c29-9d48-31e1bdceec96" width="32%" />   
+  <img src="https://github.com/Jeda777/Discord-Clone/assets/66244271/855ca4bf-8d4b-4682-a6f8-25498cca7c18" width="32%" />
 </p>
 
 ![DiscordClone1](https://github.com/Jeda777/Discord-Clone/assets/66244271/c38c668b-53f2-4872-91aa-fa4b12bf13a9)

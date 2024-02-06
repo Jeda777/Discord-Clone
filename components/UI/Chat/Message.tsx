@@ -45,7 +45,7 @@ const Message = ({ id, content, fileUrl, time, deleted, isUpdated, profile, curr
                 <IoEllipsisVertical className='text-sm text-primary font-semibold opacity-70 hover:opacity-100' />
               </button>
               <div className='dropdown-menu dropdown-menu-bottom-left bg-background'>
-                {!fileUrl && (
+                {!fileUrl && isOwned && (
                   <button className='dropdown-item text-sm text-primary' onClick={() => setUpdating(true)}>
                     Change
                   </button>

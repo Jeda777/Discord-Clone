@@ -33,19 +33,21 @@ const Message = ({ id, content, fileUrl, time, deleted, isUpdated, profile, curr
       <Image width={40} height={40} alt='Profile image' src={profile.imageUrl} className='rounded-full h-min' />
       <div className='flex flex-col gap-1'>
         <div className='flex gap-2 items-center'>
-          <p className='text-primary text-sm font-bold opacity-70'>
+          <p className='text-primary text-xs md:text-sm font-bold opacity-70'>
             {profile.name}
             {isOwned && <span> (you)</span>}
           </p>
-          <p className='text-primary text-xs font-semibold opacity-70 self-end'>{time}</p>
-          {isUpdated && !deleted && <p className='text-primary text-xs font-semibold opacity-70 self-end'>Updated</p>}
+          <p className='text-primary text-[10px] md:text-xs font-semibold opacity-70 self-end'>{time}</p>
+          {isUpdated && !deleted && (
+            <p className='text-primary text-[10px] md:text-xs font-semibold opacity-70 self-end'>Updated</p>
+          )}
           {canDelete && !deleted && !updating && (
             <div className='dropdown h-[14px] flex'>
-              <button>
+              <button tabIndex={0}>
                 <IoEllipsisVertical className='text-sm text-primary font-semibold opacity-70 hover:opacity-100' />
               </button>
               <div className='dropdown-menu dropdown-menu-bottom-left bg-background'>
-                {!fileUrl && (
+                {!fileUrl && isOwned && (
                   <button className='dropdown-item text-sm text-primary' onClick={() => setUpdating(true)}>
                     Change
                   </button>
@@ -63,7 +65,7 @@ const Message = ({ id, content, fileUrl, time, deleted, isUpdated, profile, curr
         {!deleted && (
           <div>
             {' '}
-            {!fileUrl && !updating && <p className='text-primary'>{content}</p>}
+            {!fileUrl && !updating && <p className='text-primary text-sm md:text-base'>{content}</p>}
             {!fileUrl && updating && <MessageUpdatingInput content={content} id={id} query={query} setUpdating={setUpdating} />}
             {fileUrl && fileUrl.split('.').pop() === 'pdf' && (
               <a href={fileUrl} target='_blank'>

@@ -50,7 +50,7 @@ const MediaRoom = ({ channelId, profile, audio, video }: props) => {
       serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_URL}
       // Use the default LiveKit theme for nice styles.
       data-lk-theme='default'
-      // style={{ height: '100dvh' }}
+      style={{ height: 'calc(100% - 56px - 61px)' }}
     >
       {/* Your custom component with basic video conferencing functionality. */}
       <MyVideoConference />

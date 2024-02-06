@@ -1,4 +1,6 @@
 import ChatBox from '@/components/UI/Chat/ChatBox'
+import ChatHeader from '@/components/UI/Chat/ChatHeader'
+import NavigationSidebar from '@/components/UI/Navigation/NavigationSidebar'
 import MediaRoom from '@/components/UI/Server/MediaRoom'
 import MembersSideBar from '@/components/UI/Server/MembersSideBar'
 import ServerSidebar from '@/components/UI/Server/ServerSidebar'
@@ -46,7 +48,11 @@ const ChannelPage = async ({ params }: props) => {
 
   return (
     <div className='h-full w-full flex'>
-      <ServerSidebar server={server} role={role} profileId={profile.id} />
+      <div className='h-full hidden md:flex'>
+        <NavigationSidebar />
+        <ServerSidebar server={server} role={role} profileId={profile.id} />
+      </div>
+
       {channel.type == ChannelType.TEXT ? (
         <ChatBox
           type='channel'
@@ -55,9 +61,13 @@ const ChannelPage = async ({ params }: props) => {
           socketKeyValue={channel.id}
           profileId={profile.id}
           isModerator={isModerator}
+          serverId={server.id}
         />
       ) : (
-        <MediaRoom audio={true} video={channel.type === 'VIDEO'} channelId={channel.id} profile={profile} />
+        <div className='overflow-hidden w-full h-full flex-col'>
+          <ChatHeader name={channel.name} type='channel' serverId={server.id} />
+          <MediaRoom audio={true} video={channel.type === 'VIDEO'} channelId={channel.id} profile={profile} />
+        </div>
       )}
       <MembersSideBar server={server} role={role} profileId={profile.id} />
     </div>

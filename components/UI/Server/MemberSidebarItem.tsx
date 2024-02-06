@@ -27,7 +27,7 @@ const MemberSidebarItem = ({ serverId, isModerator, memberId, role, name, imageU
   if (!isUser) {
     return (
       <div className='dropdown p-2 w-auto dark:hover:bg-white hover:bg-black rounded-xl hover:bg-opacity-20 dark:hover:bg-opacity-20 transition-all'>
-        <button className='flex flex-row items-center w-40 gap-2'>
+        <button className='flex flex-row items-center w-40 gap-2' tabIndex={0}>
           <Image alt='Member avatar' src={imageUrl} width={24} height={24} className='rounded-full aspect-square' />
           <div className='flex flex-col gap-0.5 items-start'>
             <p className='text-sm font-semibold overflow-clip w-[100px] whitespace-nowrap text-left'>{name}</p>

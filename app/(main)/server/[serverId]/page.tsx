@@ -1,3 +1,4 @@
+import NavigationSidebar from '@/components/UI/Navigation/NavigationSidebar'
 import MembersSideBar from '@/components/UI/Server/MembersSideBar'
 import ServerSidebar from '@/components/UI/Server/ServerSidebar'
 import { currentProfile } from '@/lib/currentProfile'
@@ -37,7 +38,11 @@ const ServerPage = async ({ params }: props) => {
 
   return (
     <div className='h-full w-full flex'>
-      <ServerSidebar server={server} role={role} profileId={profile.id} />
+      <div className='h-full w-full flex'>
+        <NavigationSidebar />
+        <ServerSidebar server={server} role={role} profileId={profile.id} />
+      </div>
+
       <div className='w-full'></div>
       <MembersSideBar server={server} role={role} profileId={profile.id} />
     </div>

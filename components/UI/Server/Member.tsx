@@ -30,7 +30,7 @@ const Member = ({ serverId, isModerator, memberId, role, name, imageUrl, isUser 
   if (!isUser) {
     return (
       <div className='card dropdown p-2 bg-secondary'>
-        <button className='flex flex-row items-center w-64 gap-2'>
+        <button className='flex flex-row items-center w-64 gap-2' tabIndex={0}>
           <Image alt='Member avatar' src={imageUrl} width={32} height={32} className='rounded-full aspect-square' />
           <div className='flex flex-col gap-0.5 items-start'>
             <p className='text-lg font-semibold overflow-clip'>{name}</p>

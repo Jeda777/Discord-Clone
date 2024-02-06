@@ -21,7 +21,7 @@ const ConversationPage = async ({ params }: props) => {
 
   return (
     <div className='h-full w-full flex'>
-      <div className='h-full w-full hidden md:flex'>
+      <div className='h-full hidden md:flex'>
         <NavigationSidebar />
         {allConversations.length > 0 && <ConversationsSidebar conversations={allConversations} profileId={profile.id} />}
       </div>

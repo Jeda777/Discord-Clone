@@ -19,7 +19,7 @@ const ServerHeader = ({ server, role, profileId }: props) => {
 
   return (
     <div className='dropdown w-full'>
-      <button className='p-2 flex items-center justify-between w-full'>
+      <button className='p-2 flex items-center justify-between w-full' tabIndex={0}>
         <IoChevronDown className='md:text-2xl text-primary' />
         {server.name}
       </button>

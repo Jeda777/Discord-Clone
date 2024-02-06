@@ -41,7 +41,7 @@ const Message = ({ id, content, fileUrl, time, deleted, isUpdated, profile, curr
           {isUpdated && !deleted && <p className='text-primary text-xs font-semibold opacity-70 self-end'>Updated</p>}
           {canDelete && !deleted && !updating && (
             <div className='dropdown h-[14px] flex'>
-              <button>
+              <button tabIndex={0}>
                 <IoEllipsisVertical className='text-sm text-primary font-semibold opacity-70 hover:opacity-100' />
               </button>
               <div className='dropdown-menu dropdown-menu-bottom-left bg-background'>

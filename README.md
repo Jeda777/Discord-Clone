@@ -6,7 +6,7 @@
     This project is Discord clone with main features of Discord.
     <br/>
     <br/>
-    <a href="https://discord-clone-production-5538.up.railway.app/">View Demo</a>
+    <a href="https://discord-clone-woad-eight.vercel.app/">View Demo</a>
     .
     <a href="https://github.com/Jeda777/Discord-Clone/issues">Report Bug</a>
     .
